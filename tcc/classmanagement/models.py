@@ -68,7 +68,7 @@ class Materia(models.Model):
         verbose_name = 'Matéria'
         verbose_name_plural = 'Matérias'
 
-class Avisos(models.Model):
+class Aviso(models.Model):
     AVISO_CHOICES   = (
         ('N', 'Aviso'), #Notice
         ('H', 'Tarefa'), #Homework
