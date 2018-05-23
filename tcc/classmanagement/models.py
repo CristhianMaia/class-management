@@ -8,9 +8,25 @@ class Colegio(models.Model):
     nome                    = models.CharField(max_length=240, blank= False, null=False, help_text='Obrigatório.')
     data_cadastro           = models.DateField(auto_now_add=True)
 
+    # Método que vai retornar o nome do objeto quando for imprimir um objeto, como se fosse um toString
+    def __str__(self):
+        return self.nome
+
+    # Define como será chamada essa classe nas telas porque o nome tema acento
+    # Só é necessário se a palavra tem acentos
+    class Meta:
+        verbose_name = 'Colégio'
+        verbose_name_plural = 'Colégios'
+
+
 class Professor(models.Model):
     nome                    = models.CharField(max_length=120, blank=False, null=False, help_text='Obrigatório.')
     email                   = models.EmailField(max_length=120, blank=False, null=False, help_text='Obrigatório.')
+
+    # Método que vai retornar o nome do objeto quando for imprimir um objeto, como se fosse um toString
+    def __str__(self):
+        return self.nome
+
 
 class Turma(models.Model):
     nome                    = models.CharField(max_length=120, blank=False, null=False, help_text='Obrigatório.')
@@ -18,6 +34,10 @@ class Turma(models.Model):
     data_cadastro           = models.DateField(auto_now_add=True)
     representante           = models.ForeignKey(User, on_delete=models.PROTECT, blank=False, null=False)
     colegio                 = models.ForeignKey(Colegio, on_delete=models.PROTECT, blank=False, null=False, help_text='Obrigatório.')
+
+    # Método que vai retornar o nome do objeto quando for imprimir um objeto, como se fosse um toString
+    def __str__(self):
+        return self.nome
 
 
 class Materia(models.Model):
@@ -38,6 +58,16 @@ class Materia(models.Model):
     turma                   = models.ForeignKey(Turma, on_delete=models.PROTECT, null=False, blank=False)
     professor               = models.ForeignKey(Professor, on_delete=models.PROTECT, null=False, blank=False)
 
+    # Método que vai retornar o nome do objeto quando for imprimir um objeto, como se fosse um toString
+    def __str__(self):
+        return self.nome
+
+    # Define como será chamada essa classe nas telas porque o nome tema acento
+    # Só é necessário se a palavra tem acentos
+    class Meta:
+        verbose_name = 'Matéria'
+        verbose_name_plural = 'Matérias'
+
 class Avisos(models.Model):
     AVISO_CHOICES   = (
         ('N', 'Aviso'), #Notice
@@ -52,6 +82,11 @@ class Avisos(models.Model):
     data_post               = models.DateField(auto_now_add=True)
     turma                   = models.ForeignKey(Turma, on_delete=models.PROTECT, null=False, blank=False)
     materia                 = models.ForeignKey(Materia, on_delete=models.PROTECT, null=False, blank=False)
+
+    # Método que vai retornar o nome do objeto quando for imprimir um objeto, como se fosse um toString
+    def __str__(self):
+        return self.nome
+
 
 class Atendimento(models.Model):
     DIA_CHOICES   = (
@@ -68,3 +103,7 @@ class Atendimento(models.Model):
     dia                     = models.CharField(max_length=3, choices=DIA_CHOICES, blank=False, null=False, help_text='Obrigatório.')
     horario_inicio          = models.CharField(max_length=5, blank=False, null=False, help_text='Obrigatório.')
     horario_fim             = models.CharField(max_length=5, blank=False, null=False, help_text='Obrigatório.')
+
+    # Método que vai retornar o nome do objeto quando for imprimir um objeto, como se fosse um toString
+    def __str__(self):
+        return self.nome
