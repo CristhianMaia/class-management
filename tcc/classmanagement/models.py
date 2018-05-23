@@ -27,6 +27,11 @@ class Professor(models.Model):
     def __str__(self):
         return self.nome
 
+    # Define como será chamada essa classe nas telas porque o nome tema acento
+    # Só é necessário se a palavra tem acentos
+    class Meta:
+        verbose_name_plural = 'Professores'
+
 
 class Turma(models.Model):
     nome                    = models.CharField(max_length=120, blank=False, null=False, help_text='Obrigatório.')
