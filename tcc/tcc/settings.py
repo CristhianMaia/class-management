@@ -55,7 +55,8 @@ ROOT_URLCONF = 'tcc.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        # Adicionar as pastas de cada app para os templates
+        'DIRS': [os.path.join(BASE_DIR, 'classmanagement/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
