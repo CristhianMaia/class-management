@@ -85,7 +85,7 @@ class Avisos(models.Model):
 
     # Método que vai retornar o nome do objeto quando for imprimir um objeto, como se fosse um toString
     def __str__(self):
-        return self.nome
+        return "%s (%s)" % (self.turma, self.data_final)
 
 
 class Atendimento(models.Model):
@@ -106,4 +106,4 @@ class Atendimento(models.Model):
 
     # Método que vai retornar o nome do objeto quando for imprimir um objeto, como se fosse um toString
     def __str__(self):
-        return self.nome
+        return "%s (%s)" % (self.turma, self.professor)
