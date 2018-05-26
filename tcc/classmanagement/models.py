@@ -58,8 +58,8 @@ class Materia(models.Model):
     nome                    = models.CharField(max_length=120, blank=False, null=False, help_text='Obrigatório.')
     local                   = models.CharField(max_length=120, blank=False, null=False, help_text='Obrigatório.')
     dia                     = models.CharField(max_length=3, blank=False, null=False, choices=DIA_CHOICES, help_text='Obrigatório.')
-    horario_inicio          = models.CharField(max_length=5, blank=False, null=False)
-    horario_fim             = models.CharField(max_length=5, blank=False, null=False)
+    horario_inicio          = models.CharField(max_length=5, blank=False, null=False, verbose_name="Horario de inicio")
+    horario_fim             = models.CharField(max_length=5, blank=False, null=False, verbose_name="Horario final")
     turma                   = models.ForeignKey(Turma, on_delete=models.PROTECT, null=False, blank=False)
     professor               = models.ForeignKey(Professor, on_delete=models.PROTECT, null=False, blank=False)
 
@@ -80,8 +80,8 @@ class Aviso(models.Model):
         ('W', 'Trabalho'), #Work
         ('E', 'Prova'), #Exam
     )
-    data_final              = models.DateField(auto_now=False, auto_now_add=False, blank=False, null=False)
-    tipo_aviso              = models.CharField(max_length=1, choices=AVISO_CHOICES, null=False, blank=False, help_text='Obrigatório.')
+    data_final              = models.DateField(auto_now=False, auto_now_add=False, blank=False, null=False, verbose_name="Data Final")
+    tipo_aviso              = models.CharField(max_length=1, choices=AVISO_CHOICES, null=False, blank=False, help_text='Obrigatório.', verbose_name="Tipo de Aviso")
     comentarios             = models.TextField(null=True, blank=True)
     ultima_modificacao      = models.DateField(auto_now=True)
     data_post               = models.DateField(auto_now_add=True)
@@ -106,8 +106,8 @@ class Atendimento(models.Model):
     turma                   = models.ForeignKey(Turma, on_delete=models.PROTECT, blank=False, null=False, help_text='Obrigatório.')
     professor               = models.ForeignKey(Professor, on_delete=models.PROTECT, blank=False, null=False, help_text='Obrigatório.')
     dia                     = models.CharField(max_length=3, choices=DIA_CHOICES, blank=False, null=False, help_text='Obrigatório.')
-    horario_inicio          = models.CharField(max_length=5, blank=False, null=False, help_text='Obrigatório.')
-    horario_fim             = models.CharField(max_length=5, blank=False, null=False, help_text='Obrigatório.')
+    horario_inicio          = models.CharField(max_length=5, blank=False, null=False, help_text='Obrigatório.', verbose_name="Horario de inicio")
+    horario_fim             = models.CharField(max_length=5, blank=False, null=False, help_text='Obrigatório.', verbose_name="Horario final")
 
     # Método que vai retornar o nome do objeto quando for imprimir um objeto, como se fosse um toString
     def __str__(self):
