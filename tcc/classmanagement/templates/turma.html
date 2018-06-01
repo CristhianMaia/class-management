@@ -1,13 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Turma - ID</title>
-</head>
-<body>
-    <h2>Turma %id</h2><br>
-    <p style="font-style: italic">Provas, trabalhos, tarefas, avisos listados aqui</p><br><br>
 
-    <p>Botao Para <a href="./info">Informações da turma</a></p>
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Turmas - Class Management</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/scrolling-nav.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand js-scroll-trigger" href="index.html">Class Management</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!--<header class="bg-primary text-white">
+  <div class="container text-center">
+  <h1>Class Management</h1>
+  <p class="lead">Ferramenta de auxilio à realização de tarefas escolares</p>
+</div>
+</header>-->
+<section id="contact" class="bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <h2>%TurmaNome%</h2>
+        <caption>Provas, trabalhos, tarefas, avisos listados aqui</caption>
+        <div class="list">
+          <div class="menu_list">
+            <ul class="">
+              <li><a href="#">Adicionar um aviso</a></li>
+              <li><a href="#">Adicionar um aluno</a></li>
+              <li id="info"><a href="#">Info</a></li>
+            </ul>
+          </div>
+          <div class="order">
+            <ul>
+              Ordernar:
+              <li>Aviso
+                <select>
+                  <option value="#"></option>
+                  <option value="aviso">Aviso</option>
+                  <option value="tarefa">Tarefa</option>
+                  <option value="prova">Prova</option>
+                  <option value="trabalho">Trabalho</option>
+                </select>
+              </li>
+              <li>Materia
+                <select>
+                <option value="#"></option>
+                <option value="aviso">Aviso</option>
+                <option value="tarefa">Tarefa</option>
+                <option value="prova">Prova</option>
+                <option value="trabalho">Trabalho</option>
+                </select>
+              </li>
+              <li>Data
+                <select>
+                <option value="#"></option>
+                <option value="aviso">Descrecente</option>
+                <option value="tarefa">Postagem</option>
+                </select>
+              </li>
+            </ul>
+          </div>
+          <div class="list_array">
+            <ul>
+              <li>
+                <div class="divdi">
+                  <div class="div1">
+                    <h2>%Tipo Aviso%</h2>
+                  </div>
+                  <div class="div2">
+                    <h3 id="materia">Materia: %Materia%</h3>
+                  </div>
+                </div>
+                <h4>%Comentario%Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce feugiat tellus arcu, tempus varius lorem efficitur a. Fusce fringilla lectus bibendum leo ornare consectetur. Aenean nec ultricies mauris. Suspendisse a vulputate elit. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean felis felis, varius a nisi eu, dignissim egestas enim</h4>
+                <div class="divdi">
+                  <div class="div1">
+                    <h3 id="final">Data de Entrega: %data_final%</h3>
+                  </div>
+                  <div class="div2">
+                    <h3>Ultima modificação: %ultima_modificação%</h3>
+                    <h3>Data de postagem: %data_post%</h3>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="divdi">
+                  <div class="div1">
+                    <h2>%Tipo Aviso%</h2>
+                  </div>
+                  <div class="div2">
+                    <h3 id="materia">Materia: %Materia%</h3>
+                  </div>
+                </div>
+                <h4>%Comentario%Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce feugiat tellus arcu, tempus varius lorem efficitur a. Fusce fringilla lectus bibendum leo ornare consectetur. Aenean nec ultricies mauris. Suspendisse a vulputate elit. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean felis felis, varius a nisi eu, dignissim egestas enim</h4>
+                <div class="divdi">
+                  <div class="div1">
+                    <h3 id="final">Data de Entrega: %data_final%</h3>
+                  </div>
+                  <div class="div2">
+                    <h3>Ultima modificação: %ultima_modificação%</h3>
+                    <h3>Data de postagem: %data_post%</h3>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="py-5 bg-dark">
+  <div class="container">
+    <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+  </div>
+  <!-- /.container -->
+</footer>
+
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom JavaScript for this theme -->
+<script src="js/scrolling-nav.js"></script>
+
 </body>
+
 </html>
