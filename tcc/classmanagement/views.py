@@ -4,7 +4,7 @@ from django.views.generic import TemplateView
 
 
 class Index(TemplateView):
-    template_name = 'index_base.html'
+    template_name = 'index.html'
 
 class Sobre(TemplateView):
     template_name = 'sobre.html'
