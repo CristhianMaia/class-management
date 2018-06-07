@@ -1,0 +1,163 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Inicio - Class Management</title>
+
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/scrolling-nav.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+  </head>
+
+  <body id="page-top">
+
+    {% block menu %}
+    <!-- Navigation -->
+    <div id="menu">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+        <div class="container">
+          <a class="navbar-brand js-scroll-trigger" href="#">Class Management</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="#menu">Início</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="#about">Sobre</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="#services">Funcionalidade</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="#contact">Contato</a>
+              </li>
+            </ul>
+
+              <!-- Só vai mostrar esse menu se o usuário estiver logado -->
+              {% if request.user.is_authenticated %}
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{request.user.first_name}} {{request.user.last_name}}
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="admin/auth/user/{{request.user.id}}/change/">Meu cadastro</a>
+                    <a class="dropdown-item" href="admin/auth/user/{{request.user.id}}/change/">Alterar senha</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/admin/logout">Sair</a>
+                  </div>
+                </li>
+              </ul>
+              {% endif %}
+
+
+          </div>
+        </div>
+      </nav>
+    </div>
+    {% endblock %}
+
+    {% block topo %}
+    <header class="bg-primary text-white">
+      <div class="container text-center">
+        <h1>Class Management</h1>
+        <p class="lead">Ferramenta de auxilio à realização de tarefas escolares</p>
+      </div>
+    </header>
+    {% endblock %}
+
+
+    {% block topo2 %}
+    <section id="" class="bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <h2>Bem vindo ao Class Management</h2>
+            <p class="lead">Faça o Login para ter acesso ao sistema.</p>
+            <div class="btn">
+              <a href="/login">Clique aqui para acessar</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    {% endblock %}
+
+
+    {% block conteudo %}
+    <section id="about">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <h2>Sobre a ferramenta</h2>
+            <p class="lead">Essa ferramenta tem como objetivo ajudar estudantes a Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec lectus turpis, ullamcorper non condimentum in, condimentum eget est. Duis neque purus, iaculis a fermentum et, bibendum a tellus. Nunc eu imperdiet lorem. In convallis a lorem ornare mollis. Donec sit amet urna scelerisque, interdum lacus sit amet, aliquet odio. In dignissim ac nunc id bibendum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Phasellus justo lectus, fringilla ultricies urna lacinia, facilisis gravida enim. Nulla facilisi. Praesent odio turpis, eleifend volutpat turpis eget, mattis suscipit leo.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <h2>Quais são as funcionalidades desse sistema?</h2>
+            <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut optio velit inventore, expedita quo laboriosam possimus ea consequatur vitae, doloribus consequuntur ex. Nemo assumenda laborum vel, labore ut velit dignissimos.</p>
+            <ul>
+              <li>Clickable nav links that smooth scroll to page sections</li>
+              <li>Responsive behavior when clicking nav links perfect for a one page website</li>
+              <li>Bootstrap's scrollspy feature which highlights which section of the page you're on in the navbar</li>
+              <li>Minimal custom CSS so you are free to explore your own unique design options</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <h2>Entre em contato</h2>
+            <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero odio fugiat voluptatem dolor, provident officiis, id iusto! Obcaecati incidunt, qui nihil beatae magnam et repudiandae ipsa exercitationem, in, quo totam.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    {% endblock %}
+
+    {% block rodape %}
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Class Maagement 2018</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+    {% endblock %}
+
+    {% block scripts_js %}
+    <!-- Bootstrap core JavaScript -->
+    <script src="{% static "vendor/jquery/jquery.min.js" %}"></script>
+    <script src="{% static "vendor/bootstrap/js/bootstrap.bundle.min.js" %}"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="{% static "vendor/jquery-easing/jquery.easing.min.js" %}"></script>
+
+    <!-- Custom JavaScript for this theme -->
+    <script src="{% static "js/scrolling-nav.js" %}"></script>
+    {% endblock %}
+
+  </body>
+
+</html>

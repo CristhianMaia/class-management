@@ -8,7 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 #Telas iniciais
 
 class Index(TemplateView):
-    template_name = 'index.html'
+    template_name = 'base.html'
 
 class Login(TemplateView):
     template_name = 'login.html'
