@@ -1,5 +1,7 @@
 {% load static %}
 
+{% load bootstrap4 %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,14 +40,15 @@
         <caption>Preencha o formulario de Cadastro.</caption>
         <br>
           </div>
-<div class="list">
+          <div class="list">
           <form method="post" action="">
-            {{form.as_p}}
+            {% bootstrap_form form %}
 
             <br>
-            <input type="submit" value="{{input}}" />
+            <input type="submit" value="{{input}}" class="btn btn-primary" />
+
           </form>
-</div>
+        </div>
       </div>
     </div>
   </div>
