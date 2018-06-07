@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,13 +11,9 @@
 
     <title>Inicio - Class Management</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="css/scrolling-nav.css" rel="stylesheet">
-
-    <link href="css/style.css" rel="stylesheet">
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/scrolling-nav.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
   </head>
 
   <body id="page-top">
@@ -58,7 +55,7 @@
             <h2>Bem vindo ao Class Management</h2>
             <p class="lead">Faça o Login ou Registro para acessar o sistema.</p>
             <div class="btn">
-              <a href="/entrar">Clique aqui para acessar</a>
+              <a href="/turmas">Clique aqui para acessar</a>
             </div>
           </div>
         </div>
