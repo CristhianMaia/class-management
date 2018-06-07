@@ -29,9 +29,16 @@ a, a:hover{
   text-decoration: none;
 }
 
+.headform{
+    background: blue;
+  border: 1px solid #696969;
+  margin: 15px 0px 0px 0px;
+  padding: 0px;
+}
+
 
 .list{
-
+    background:blue;
   border: 1px solid #696969;
   margin: 15px 0px 0px 0px;
   padding: 0px;

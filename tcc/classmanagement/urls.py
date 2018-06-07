@@ -19,17 +19,16 @@ from . import views
 
 
 urlpatterns = [
-    path('cadastro/', views.UserCreateView.as_view(), name='cadastro'),
-
     path('', views.Index.as_view(), name="index"),
+    path('login/', views.Login.as_view(), name='login'),
+    path('login/cadastro/', views.UserCreateView.as_view(), name='cadastro'),
 
     path('turmas/', views.TurmasTemplateView.as_view(), name='turmas'),  # Tela das turmas disponiveis para o usuario
-    path('criarturma/', views.CriacaoTurma.as_view(), name='criação de turma'),
-    # tela para criar novas turmas por meio de um botao da tela Turmas
+    path('turmas/cadastrar/', views.TurmasCreateView.as_view(), name='cadastrar turma'),   # tela para criar novas turmas por meio de um botao da tela Turmas
 
-    path('turmas/turmaID/', views.Turma.as_view(), name='turma'),
-    # Turma selecionada pelo usuario por meio da tela Turmas
-    path('turmas/turmaID/info/', views.InfoTurma.as_view(), name='info_turma'),
-    # info da turma em que estava selecionada por meio de botao na tela Turma
+    path('turmas/1/', views.TurmaTemplateView.as_view(), name='turmaID'),   # Turma selecionada pelo usuario por meio da tela Turmas
+    path('turmas/1/adicionar_aviso/', views.AvisoCreateView.as_view(), name='cadastrar aviso'),
+    path('turmas/1/adicionar_aluno/', views.AlunosCreateView.as_view(), name='cadastrar aluno'),
+    path('turmas/1/info/', views.InfoTurma.as_view(), name='info_turma'),     # info da turma em que estava selecionada por meio de botao na tela Turma
 
 ]
