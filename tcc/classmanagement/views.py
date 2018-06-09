@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from . import models
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from .forms import RegistrarUserForm
 
 #Telas iniciais
 
@@ -16,13 +17,7 @@ class Login(TemplateView):
 class UserCreateView(CreateView):
     model = User
     template_name = 'form.html'
-    fields = [
-        'first_name',
-        'last_name',
-        'email',
-        'username',
-        'password'
-    ]
+    form_class = RegistrarUserForm
 
     # Como enviar outros dados para tela
     def get_context_data(self, **kwargs):
