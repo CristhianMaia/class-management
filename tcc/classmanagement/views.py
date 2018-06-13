@@ -86,6 +86,7 @@ class MateriaCreateView(LoginRequiredMixin, CreateView): #Cadastro de Materias
     template_name = 'form.html'
     model = models.Materia
     login_url = '/login/'
+    success_url = reverse_lazy('index')
     fields = [
         'nome',
         'local',
@@ -107,6 +108,7 @@ class AtendimentoCreateView(LoginRequiredMixin, CreateView): #Cadastro de atendi
     template_name = 'form.html'
     model = models.Atendimento
     login_url = '/login/'
+    success_url = reverse_lazy('index')
     fields = [
         'turma',
         'professor',
@@ -125,6 +127,7 @@ class AvisoCreateView(LoginRequiredMixin, CreateView):  #Cadastro de Aviso
     template_name = 'form.html'
     model = models.Aviso
     login_url = '/login/'
+    success_url = reverse_lazy('index')
     fields = [
         'turma',
         'materia',
