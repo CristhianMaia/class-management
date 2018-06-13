@@ -23,7 +23,7 @@ class UserCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['titulo'] = 'Criar um usuario'
+        context['titulo'] = 'Registrar-se como Aluno'
         context['input'] = 'Enviar'
         return context
 
@@ -44,7 +44,6 @@ class TurmaCreateView(LoginRequiredMixin, CreateView): #Tela de crianção de tu
 
         context['titulo'] = 'Cadastro de Turma'
         context['input'] = 'Cadastrar'
-
         return context
 
 
@@ -63,6 +62,23 @@ class ProfessorCreateView(LoginRequiredMixin, CreateView):  # Cadastro de Profes
 
         context['titulo'] = 'Cadastro de Professores'
         context['input'] = 'Adicionar Professor'
+        return context
+
+
+class ColegioCreateView(LoginRequiredMixin, CreateView):  # Cadastro de Professores
+    template_name = 'form.html'
+    model = models.Colegio
+    login_url = '/login/'
+    success_url = reverse_lazy('index')  # pra onde ir depois de cadastrar
+    fields = [
+        'nome'
+    ]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['titulo'] = 'Cadastro de Colegios'
+        context['input'] = 'Adicionar Colegio'
         return context
 
 
@@ -92,6 +108,7 @@ class AtendimentoCreateView(LoginRequiredMixin, CreateView): #Cadastro de atendi
     model = models.Atendimento
     login_url = '/login/'
     fields = [
+        'turma',
         'professor',
         'dia',
         'horario_inicio',
@@ -109,9 +126,11 @@ class AvisoCreateView(LoginRequiredMixin, CreateView):  #Cadastro de Aviso
     model = models.Aviso
     login_url = '/login/'
     fields = [
-        'data_final',
+        'turma',
+        'materia',
         'tipo_aviso',
-        'comentarios'
+        'comentarios',
+        'data_final'
     ]
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

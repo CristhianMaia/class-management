@@ -27,6 +27,7 @@ urlpatterns = [
 #-------Cadastros------#
     path('registrar/', views.UserCreateView.as_view(), name='cadastrar_user'),
     path('cadastrar/professor/', views.ProfessorCreateView.as_view(), name='cadastrar_professor'),
+    path('cadastrar/colegio/', views.ColegioCreateView.as_view(), name='cadastrar_colegio'),
     path('cadastrar/turma/', views.TurmaCreateView.as_view(), name='cadastrar_turma'),   # tela para criar novas turmas por meio de um botao da tela Turmas
     path('cadastrar/materia/', views.MateriaCreateView.as_view(), name='cadastrar_materia'),
     path('cadastrar/atendimento/', views.AtendimentoCreateView.as_view(), name='cadastrar_atendimento'),
