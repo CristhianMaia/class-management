@@ -23,7 +23,7 @@ class UserCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['titulo'] = 'Cadastro de alunos'
+        context['titulo'] = 'Login'
         context['input'] = 'Enviar'
         return context
 
@@ -40,8 +40,8 @@ class TurmasTemplateView(TemplateView): #Tela de turmas do disponiveis para o us
         return context
 
 class TurmasCreateView(CreateView):
-    template_name = 'form.html'
     model = models.Turma
+    template_name = 'form.html'
     login_url = '/entrar/'
     fields = [
         'nome',
@@ -62,6 +62,7 @@ class TurmaTemplateView(TemplateView): #Tela da turma que foi selecionada
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['titulo'] = 'Lista de Turmas'
         return context
 
 class AvisoCreateView(CreateView):
@@ -76,7 +77,7 @@ class AvisoCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['titulo'] = 'Cadastrar o aviso'
+        context['titulo'] = 'Cadastrar aviso'
         context['input'] = 'Adicionar'
         return context
 

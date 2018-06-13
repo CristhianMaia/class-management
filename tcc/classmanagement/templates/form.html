@@ -6,10 +6,9 @@
 {% load bootstrap4 %}
 
 <!-- Faz o menu exatamente como o que está no arquivo base, por isso o .super -->
-{% block menu %}
-{{block.super}}
+{% block title %}
+{{titulo}}
 {% endblock %}
-
 
 <!-- Substitui o topo do base por este.
 Um monte de <br> serve para o texto do conteúdo não ficar embaixo do menu -->
@@ -30,8 +29,8 @@ Um monte de <br> serve para o texto do conteúdo não ficar embaixo do menu -->
       <br>
 
       <h2>{{titulo}}</h2>
+
       <hr>
-      <br>
 
       <form method="post" action="">
         {% bootstrap_form form %}
