@@ -14,6 +14,12 @@ class Index(TemplateView):
 class Login(TemplateView):
     template_name = 'login.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['titulo'] = 'Login'
+        return context
+
 class UserCreateView(CreateView):
     model = User
     template_name = 'form.html'
@@ -23,7 +29,7 @@ class UserCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['titulo'] = 'Login'
+        context['titulo'] = 'Criar um usuario'
         context['input'] = 'Enviar'
         return context
 
