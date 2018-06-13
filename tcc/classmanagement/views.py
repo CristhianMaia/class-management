@@ -27,9 +27,9 @@ class UserCreateView(CreateView):
         context['input'] = 'Enviar'
         return context
 
-class TurmasTemplateView(TemplateView, LoginRequiredMixin): #Tela de turmas do disponiveis para o usuario - pos login
+class TurmasTemplateView(LoginRequiredMixin, TemplateView): #Tela de turmas do disponiveis para o usuario - pos login
     template_name = 'turmas.html'
-    login_url = '/entrar/'
+    login_url = '/login/'
 
     # Como enviar outros dados para tela
     def get_context_data(self, **kwargs):
@@ -39,10 +39,10 @@ class TurmasTemplateView(TemplateView, LoginRequiredMixin): #Tela de turmas do d
         context['titulo'] = 'Lista de Turmas'
         return context
 
-class TurmasCreateView(CreateView):
+class TurmasCreateView(LoginRequiredMixin, CreateView):
     model = models.Turma
     template_name = 'form.html'
-    login_url = '/entrar/'
+    login_url = '/login/'
     fields = [
         'nome',
         'colegio'
@@ -56,19 +56,19 @@ class TurmasCreateView(CreateView):
         return context
 
 #Tela de Turma
-class TurmaTemplateView(TemplateView): #Tela da turma que foi selecionada
+class TurmaTemplateView(LoginRequiredMixin,TemplateView): #Tela da turma que foi selecionada
     template_name = 'turma.html'
-    login_url = '/entrar/'
+    login_url = '/login/'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Lista de Turmas'
         return context
 
-class AvisoCreateView(CreateView):
+class AvisoCreateView(LoginRequiredMixin, CreateView):
     template_name = 'form.html'
     model = models.Aviso
-    login_url = '/entrar/'
+    login_url = '/login/'
     fields = [
         'data_final',
         'tipo_aviso',
@@ -81,10 +81,10 @@ class AvisoCreateView(CreateView):
         context['input'] = 'Adicionar'
         return context
 
-class AlunosCreateView(CreateView):
+class AlunosCreateView(LoginRequiredMixin, CreateView):
     template_name = 'form.html'
     model = models.Turma
-    login_url = '/entrar/'
+    login_url = '/login/'
     fields = [
         'nome',
         'colegio'
@@ -96,6 +96,6 @@ class AlunosCreateView(CreateView):
         context['input'] = 'Adicionar'
         return context
 
-class InfoTurma(TemplateView): #Info da turma selecionada por meio de um botao na tela Turma
+class InfoTurma(LoginRequiredMixin, TemplateView): #Info da turma selecionada por meio de um botao na tela Turma
     template_name = 'infoturma.html'
-    login_url = '/entrar/'
+    login_url = '/login/'
