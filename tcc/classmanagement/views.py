@@ -27,7 +27,7 @@ class UserCreateView(CreateView):
         context['input'] = 'Enviar'
         return context
 
-class TurmasTemplateView(TemplateView): #Tela de turmas do disponiveis para o usuario - pos login
+class TurmasTemplateView(TemplateView, LoginRequiredMixin): #Tela de turmas do disponiveis para o usuario - pos login
     template_name = 'turmas.html'
     login_url = '/entrar/'
 
