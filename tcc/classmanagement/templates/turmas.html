@@ -22,14 +22,14 @@
         <div class="list">
           <div class="menu_list">
             <ul class="">
-              <li><a href="/turmas/cadastrar">Criar uma turma</a></li>
+              <li><a href="{% url 'cadastrar_turma' %}">Criar uma turma</a></li>
             </ul>
           </div>
           <div class="list_array">
             <ul>
               {% for t in turmas %}
               <li>
-                <a href="/turmas/{{t.id}}">
+                <a href="/turma/{{t.id}}">
                 <h1>{{t.nome}}</h1>
                 <h2>{{t.colegio.nome}}</h2>
                 <h3>Representante: {{t.representante.first_name}} {{t.representante.last_name}}</h3>

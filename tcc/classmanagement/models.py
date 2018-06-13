@@ -56,10 +56,10 @@ class Materia(models.Model):
         ('Dom', 'Domingo'),
     )
     nome                    = models.CharField(max_length=120, blank=False, null=False, help_text='Obrigatório.')
-    local                   = models.CharField(max_length=120, blank=False, null=False, help_text='Obrigatório.')
-    dia                     = models.CharField(max_length=3, blank=False, null=False, choices=DIA_CHOICES, help_text='Obrigatório.')
-    horario_inicio          = models.CharField(max_length=5, blank=False, null=False, verbose_name="Horario de inicio")
-    horario_fim             = models.CharField(max_length=5, blank=False, null=False, verbose_name="Horario final")
+    local                   = models.CharField(max_length=120, blank=False, null=False, help_text='Exemplo: "Sala 02"')
+    dia                     = models.CharField(max_length=3, blank=False, null=False, choices=DIA_CHOICES, help_text='Dia da Semana')
+    horario_inicio          = models.CharField(max_length=5, blank=False, null=False, verbose_name="Horario de inicio", help_text='Exemplo: "20:00"')
+    horario_fim             = models.CharField(max_length=5, blank=False, null=False, verbose_name="Horario final", help_text='Exemplo: "20:50"')
     turma                   = models.ForeignKey(Turma, on_delete=models.PROTECT, null=False, blank=False)
     professor               = models.ForeignKey(Professor, on_delete=models.PROTECT, null=False, blank=False)
 

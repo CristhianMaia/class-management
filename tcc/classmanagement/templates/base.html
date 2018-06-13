@@ -31,8 +31,10 @@
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="#menu">Início</a>
+                <a class="nav-link js-scroll-trigger" href="{% url 'index' %}">Início</a>
               </li>
+
+              {% block menu_index %}
               <li class="nav-item">
                 <a class="nav-link js-scroll-trigger" href="#about">Sobre</a>
               </li>
@@ -42,6 +44,23 @@
               <li class="nav-item">
                 <a class="nav-link js-scroll-trigger" href="#contact">Contato</a>
               </li>
+              {% endblock %}
+
+              {% if request.user.is_authenticated %}
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Cadastros
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{% url 'cadastrar_turma' %}">Turma</a>
+                  <a class="dropdown-item" href="{% url 'cadastrar_professor' %}">Professor</a>
+                  <a class="dropdown-item" href="{% url 'cadastrar_materia' %}">Matéria</a>
+                  <a class="dropdown-item" href="{% url 'cadastrar_atendimento' %}">Atendimento</a>
+                  <a class="dropdown-item" href="{% url 'cadastrar_aviso' %}">Aviso</a>
+                </div>
+              </li>
+              {% endif %}
+
             </ul>
 
               <!-- Só vai mostrar esse menu se o usuário estiver logado -->
@@ -62,10 +81,10 @@
             {% else %}
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="/login">Entrar</a>
+                <a class="nav-link js-scroll-trigger" href="{% url 'login' %}">Entrar</a>
               </li>
             </ul>
-              {% endif %}
+            {% endif %}
             
 
 
@@ -147,7 +166,7 @@
     <!-- Footer -->
     <footer class="py-5 bg-dark">
       <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Class Maagement 2018</p>
+        <p class="m-0 text-center text-white">Copyright &copy; Class Management 2018</p>
       </div>
       <!-- /.container -->
     </footer>
