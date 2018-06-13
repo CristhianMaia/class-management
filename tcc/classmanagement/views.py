@@ -99,7 +99,59 @@ class AlunosCreateView(LoginRequiredMixin, CreateView):
         context = super().get_context_data(**kwargs)
 
         context['titulo'] = 'Cadastro de Turma'
-        context['input'] = 'Adicionar'
+        context['input'] = 'Adicionar Aluno'
+        return context
+
+class MateriaCreateView(LoginRequiredMixin, CreateView):
+    template_name = 'form.html'
+    model = models.Materia
+    login_url = '/login/'
+    fields = [
+        'nome',
+        'local',
+        'dia',
+        'horario_inicio',
+        'horario_fim',
+        'turma',
+        'professor'
+    ]
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['titulo'] = 'Cadastro de Materias'
+        context['input'] = 'Adicionar Matéria'
+        return context
+
+class ProfessorCreateView(LoginRequiredMixin, CreateView):
+        template_name = 'form.html'
+        model = models.Materia
+        login_url = '/login/'
+        fields = [
+            'nome',
+            'email'
+        ]
+
+        def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+
+            context['titulo'] = 'Cadastro de Professores'
+            context['input'] = 'Adicionar Professor'
+            return context
+
+class AtendimentoCreateView(LoginRequiredMixin, CreateView):
+    template_name = 'form.html'
+    model = models.Atendimento
+    login_url = '/login/'
+    fields = [
+        'dia',
+        'horario_inicio',
+        'horario_fim'
+    ]
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['titulo'] = 'Cadastro de Atendimento'
+        context['input'] = 'Adicionar Atendimento'
         return context
 
 class InfoTurma(LoginRequiredMixin, TemplateView): #Info da turma selecionada por meio de um botao na tela Turma

@@ -29,6 +29,9 @@ urlpatterns = [
     path('turmas/1/', views.TurmaTemplateView.as_view(), name='turmaID'),   # Turma selecionada pelo usuario por meio da tela Turmas
     path('turmas/1/adicionar_aviso/', views.AvisoCreateView.as_view(), name='cadastrar aviso'),
     path('turmas/1/adicionar_aluno/', views.AlunosCreateView.as_view(), name='cadastrar aluno'),
+    path('turmas/1/adicionar_materia/', views.MateriaCreateView.as_view(), name='cadastrar materia'),
+    path('turmas/1/adicionar_atendimento/', views.AtendimentoCreateView.as_view(), name='cadastrar atendimento'),
+    path('turmas/1/adicionar_professor/', views.ProfessorCreateView.as_view(), name='cadastrar professor'),
     path('turmas/1/info/', views.InfoTurma.as_view(), name='info_turma'),     # info da turma em que estava selecionada por meio de botao na tela Turma
 
 ]
