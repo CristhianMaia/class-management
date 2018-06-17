@@ -35,14 +35,16 @@ Um monte de <br> serve para o texto do conteúdo não ficar embaixo do menu -->
       <h2>{{titulo}}</h2>
 
       <hr>
+      {% block lista %}
+<ul>
+{% for professor in object_list %}
+    <li>{{ professor.nome }} - {{professor.email}}</li>
+{% empty %}
+    <li>No articles yet.</li>
+{% endfor %}
+</ul>
+      {% endblock %}
 
-      <form method="post" action="">
-        {% csrf_token %}
-        {% bootstrap_form form %}
-
-        <br>
-        <input type="submit" value="{{input}}" class="btn btn-primary btn-sm" />
-      </form>
 
     </div>
   </div>

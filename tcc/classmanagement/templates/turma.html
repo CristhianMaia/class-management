@@ -2,6 +2,12 @@
 {% load static %}
 {% load bootstrap4 %}
 
+{% block menu %}
+{{ block.super }}
+{% block menu_index %}
+{% endblock %}
+{% endblock %}
+
 {% block title %}
 {{titulo}}
 {% endblock %}

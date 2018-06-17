@@ -59,6 +59,20 @@
                   <a class="dropdown-item" href="{% url 'cadastrar_aviso' %}">Aviso</a>
                 </div>
               </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Listas
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{% url 'visualizar_aluno' %}">Aluno</a>
+                  <a class="dropdown-item" href="{% url 'visualizar_turma' %}">Turma</a>
+                  <a class="dropdown-item" href="{% url 'visualizar_professor' %}">Professor</a>
+                  <a class="dropdown-item" href="{% url 'visualizar_colegio' %}">Colegio</a>
+                  <a class="dropdown-item" href="{% url 'visualizar_materia' %}">Matéria</a>
+                  <a class="dropdown-item" href="{% url 'visualizar_atendimento' %}">Atendimento</a>
+                  <a class="dropdown-item" href="{% url 'visualizar_aviso' %}">Aviso</a>
+                </div>
+              </li>
               {% endif %}
 
             </ul>
@@ -111,9 +125,10 @@
           <div class="col-lg-8 mx-auto">
             <h2>Bem vindo ao Class Management</h2>
             <p class="lead">Faça o Login para ter acesso ao sistema.</p>
-            <a href="/login">
+            <a href="/accounts/login/">
               <div class="btn">Clique aqui para acessar</div>
             </a>
+            <a href="/login"><h2 style="color:black;">ADMIN</h2></a>
           </div>
         </div>
       </div>

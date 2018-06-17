@@ -1,0 +1,20 @@
+{% extends "list.html" %}
+
+{% block title %}
+{{titulo}}
+{% endblock %}
+
+{% block lista %}
+<ul>
+{% for atendimento in object_list %}
+    <li>{{ atendimento.turma }}</li>
+    <li>{{ atendimento.professor }}</li>
+    <li>{{ atendimento.dia }}</li>
+    <li>{{ atendimento.horario_inicio }} ~ {{ atendimento.horario_fim }}</li>
+    <br>
+{% empty %}
+    <li>Vazio.</li>
+{% endfor %}
+</ul>
+
+{% endblock %}

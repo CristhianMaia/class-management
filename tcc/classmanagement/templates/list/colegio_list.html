@@ -1,0 +1,16 @@
+{% extends "list.html" %}
+
+{% block title %}
+{{titulo}}
+{% endblock %}
+
+{% block lista %}
+<ul>
+{% for colegio in object_list %}
+    <li>{{ colegio.nome }}; Data de cadastro: {{colegio.data_cadastro}}</li>
+{% empty %}
+    <li>Vazio.</li>
+{% endfor %}
+</ul>
+
+{% endblock %}

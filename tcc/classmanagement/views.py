@@ -3,21 +3,27 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.models import User
 from . import models
 from django.contrib.auth.mixins import LoginRequiredMixin
+
 from django.urls import reverse_lazy
+from django.views import generic
 
 from .forms import RegistrarUserForm
 
 #Telas iniciais
 
-class Index(TemplateView):
+class Index(TemplateView,#AnonymousRequiredMixin
+            ):
     template_name = 'base.html'
+    authenticated_redirect_url = '/turmas'
 
 #------------CreateView--------------#
-class UserCreateView(CreateView):
+class UserCreateView(CreateView, #AnonymousRequiredMixin
+                     ):
     model = User
     template_name = 'form.html'
     form_class = RegistrarUserForm
     success_url = reverse_lazy('index') # pra onde ir depois de cadastrar
+    authenticated_redirect_url = '/turmas'
 
     # Como enviar outros dados para tela
     def get_context_data(self, **kwargs):
@@ -144,6 +150,70 @@ class AvisoCreateView(LoginRequiredMixin, CreateView):  #Cadastro de Aviso
 
 
 # --------------- FIM DOS CADASTROS ---------------------#
+
+#----------------List View---------------#
+class UserListView(generic.ListView):
+    model = User
+    template_name = 'list/user_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = 'Lista de Alunos'
+        return context
+
+class ProfessorListView(generic.ListView):
+    model = models.Professor
+    template_name = 'list/professor_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = 'Lista de Professores'
+        return context
+
+class ColegioListView(generic.ListView):
+    model = models.Colegio
+    template_name = 'list/colegio_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = 'Lista de Colegios'
+        return context
+
+class TurmaListView(generic.ListView):
+    model = models.Turma
+    template_name = 'list/turma_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = 'Lista de Turmas'
+        return context
+
+class MateriaListView(generic.ListView):
+    model = models.Materia
+    template_name = 'list/materia_list.html'
+
+    def get_context_data(selfself, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = 'Lista de Matérias'
+        return context
+
+class AtendimentoListView(generic.ListView):
+    model = models.Atendimento
+    template_name = 'list/atendimento_list.html'
+
+    def get_context_data(selfself, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = 'Lista de Atendimentos'
+        return context
+
+class AvisoListView(generic.ListView):
+    model = models.Aviso
+    template_name = 'list/aviso_list.html'
+
+    def get_context_data(selfself, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = 'Lista de Avisos'
+        return context
 
 #---------------- TemplateView -------------------#
 class Login(TemplateView):

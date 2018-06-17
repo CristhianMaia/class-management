@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+
+{% block menu %}
+{{ block.super }}
+{% block menu_index %}
+{% endblock %}
+{% endblock %}
+
+{% block title %}
+{{titulo}}
+{% endblock %}
+
+{% block topo %}
+<br>
+{% endblock %}
+
+{% block topo2 %} {% endblock %}
+
+<header class="bg-primary text-white">
+    <div class="container text-center">
+        <h1>Class Management</h1>
+        <p class="lead">Faça o Login ou Registro para acessar o sistema.</</p>
+    </div>
+    <div class="container text-center">
+        {% if form.errors %}
+
+        <p>Your username and password didn't match. Please try again.</p>
+        {% endif %}
+        {% if next %}
+        {% if user.is_authenticated %}
+        <p>Your account doesn't have access to this page. To proceed,
+            please login with an account that has access.</p>
+        {% else %}
+        <p>Please login to see this page.</p>
+        {% endif %}
+        {% endif %}
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+
+            <div>
+                <td>{{ form.username.label_tag }}</td>
+                <td>{{ form.username }}</td>
+            </div>
+            <div>
+                <td>{{ form.password.label_tag }}</td>
+                <td>{{ form.password }}</td>
+            </div>
+
+            <div>
+                <input type="submit" value="login" />
+                <input type="hidden" name="next" value="{{ next }}" />
+            </div>
+        </form>
+        <p><a href="{% url 'password_reset' %}">Esqueceu a senha?</a></p>
+        <p>Não possui um cadastro em nosso sistema? <a href="{% url 'cadastrar_user' %}" style="font-weight:600;">Clique aqui</a></p>
+    </div>
+    <br><br><br><br>
+</header>
+
+
+
+
+
+{% endblock %}

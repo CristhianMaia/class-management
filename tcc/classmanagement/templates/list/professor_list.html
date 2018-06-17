@@ -1,0 +1,16 @@
+{% extends "list.html" %}
+
+{% block title %}
+{{titulo}}
+{% endblock %}
+
+{% block lista %}
+<ul>
+{% for professor in object_list %}
+    <li>{{ professor.nome }} - {{professor.email}}</li>
+{% empty %}
+    <li>Vazio.</li>
+{% endfor %}
+</ul>
+
+{% endblock %}

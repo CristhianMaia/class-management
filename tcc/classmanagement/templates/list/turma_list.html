@@ -1,0 +1,21 @@
+{% extends "list.html" %}
+
+{% block title %}
+{{titulo}}
+{% endblock %}
+
+{% block lista %}
+<ul>
+{% for turma in object_list %}
+    <li>{{ turma.nome }}</li>
+    <li>{{ turma.alunos }}</li>
+    <li>{{ turma.representante }}</li>
+    <li>{{ turma.colegio }}</li>
+    <li>{{ turma.data_cadastro }}</li>
+    <br>
+{% empty %}
+    <li>Vazio.</li>
+{% endfor %}
+</ul>
+
+{% endblock %}

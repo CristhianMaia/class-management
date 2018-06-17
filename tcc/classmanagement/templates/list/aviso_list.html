@@ -1,0 +1,23 @@
+{% extends "list.html" %}
+
+{% block title %}
+{{titulo}}
+{% endblock %}
+
+{% block lista %}
+<ul>
+{% for atendimento in object_list %}
+    <li>{{ atendimento.turma }}</li>
+    <li>{{ atendimento.materia }}</li>
+    <li>{{ atendimento.tipo_aviso }}</li>
+    <li>{{ atendimento.comentarios }}</li>
+    <li>{{ atendimento.data_post }}</li>
+    <li>{{ atendimento.ultima_modificacao }}</li>
+    <li>{{ atendimento.data_final }}</li>
+    <br>
+{% empty %}
+    <li>Vazio.</li>
+{% endfor %}
+</ul>
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "list.html" %}
+
+{% block title %}
+{{titulo}}
+{% endblock %}
+
+{% block lista %}
+<ul>
+{% for materia in object_list %}
+    <li>{{ materia.nome }}</li>
+    <li>{{ materia.turma }}</li>
+    <li>{{ materia.professor }}</li>
+    <li>{{ materia.dia }} ~ {{ materia.local }}</li>
+    <li>{{ materia.horario_inicio }} ~ {{ materia.horario_fim }}</li>
+    <br>
+{% empty %}
+    <li>Vazio.</li>
+{% endfor %}
+</ul>
+
+{% endblock %}

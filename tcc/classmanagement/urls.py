@@ -16,13 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from . import views
+from django.contrib.auth import views as auth_views
+from django.conf.urls import include
 
 
 urlpatterns = [
     path('', views.Index.as_view(), name="index"),
-    path('login/', views.Login.as_view(), name='login'),
 
     path('turmas/', views.TurmasTemplateView.as_view(), name='turmas'),  # Tela das turmas disponiveis para o usuario
+    path('login/', views.Login.as_view(), name='login'),
 
 #-------Cadastros------#
     path('registrar/', views.UserCreateView.as_view(), name='cadastrar_user'),
@@ -33,6 +35,14 @@ urlpatterns = [
     path('cadastrar/atendimento/', views.AtendimentoCreateView.as_view(), name='cadastrar_atendimento'),
     path('cadastrar/aviso/', views.AvisoCreateView.as_view(), name='cadastrar_aviso'),
 
+#--------Listas--------#
+    path('visualizar/alunos', views.UserListView.as_view(), name='visualizar_aluno'),
+    path('visualizar/professor', views.ProfessorListView.as_view(), name='visualizar_professor'),
+    path('visualizar/colegio/', views.ColegioListView.as_view(), name='visualizar_colegio'),
+    path('visualizar/turma/', views.TurmaListView.as_view(), name='visualizar_turma'),
+    path('visualizar/materia/', views.MateriaListView.as_view(), name='visualizar_materia'),
+    path('visualizar/atendimento/', views.AtendimentoListView.as_view(), name='visualizar_atendimento'),
+    path('visualizar/aviso/', views.AvisoListView.as_view(), name='visualizar_aviso'),
 
 #------Telas--------#
     path('turma/1/', views.TurmaTemplateView.as_view(), name='turmaID'),   # Turma selecionada pelo usuario por meio da tela Turmas
@@ -43,5 +53,7 @@ urlpatterns = [
     path('turma/1/adicionar_aviso/', views.AvisoCreateView.as_view(), name='cadastrar aviso'),
     path('turma/1/adicionar_aluno/', views.AlunosCreateView.as_view(), name='cadastrar aluno'),
 
+#------Autenticação-----#
+    path('accounts/', include('django.contrib.auth.urls'), name='perfil'),
 
 ]
