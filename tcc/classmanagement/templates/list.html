@@ -36,13 +36,13 @@ Um monte de <br> serve para o texto do conteúdo não ficar embaixo do menu -->
 
       <hr>
       {% block lista %}
-<ul>
-{% for professor in object_list %}
-    <li>{{ professor.nome }} - {{professor.email}}</li>
-{% empty %}
-    <li>No articles yet.</li>
-{% endfor %}
-</ul>
+      <ul>
+      {% for obj in object_list %}
+          <li>{{ obj.nome }} - {{obj.email}}</li>
+      {% empty %}
+          <li>Nenhum cadastro existente.</li>
+      {% endfor %}
+      </ul>
       {% endblock %}
 
 
