@@ -12,26 +12,26 @@ Um monte de <br> serve para o texto do conteúdo não ficar embaixo do menu -->
       <th>Usuário</th>
       <th>Nome</th>
       <th>Email</th>
-      <th>Opções</th>
+      <th class="center">Opções</th>
     </tr>
   </thead>
   <tbody>
+    {% for user in object_list %}
     <tr>
-      <td></td>
+      <td>{{ user.username }}</td>
+      <td>{{ user.first_name }} {{user.last_name}}</td>
+      <td>{{ user.email }}</td>
+      <td class="center">
+        <a href="{{user.id}}" class="">
+          <i class="fa fa-edit" aria-hidden></i>
+        </a>
+      </td>
     </tr>
+    {% empty %}
+    <tr>
+      <td colspan="4">Nenhum registro encontrado!</td>
+    </tr>
+    {% endfor %}
   </tbody>
 </table>
-
-
-
-<ul>
-{% for user in object_list %}
-    <li>{{ user.username }}</li>
-    <li>{{ user.first_name }} {{user.last_name}}</li>
-    <li>{{ user.email }}</li>
-    <br>
-{% empty %}
-    <li>Vazio.</li>
-{% endfor %}
-</ul>
 {% endblock %}
