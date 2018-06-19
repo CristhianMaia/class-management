@@ -210,9 +210,37 @@ class ColegioListView(generic.ListView):
         context['titulo'] = 'Lista de Colegios'
         return context
 
+
+# Esse aqui vai ser para o admin poder alterar alguma coisa sobre a turma
+# Quando digo admin, pode ser o admin do django ou o representante
+class AdminTurmaListView(generic.ListView):
+    model = models.Turma
+    template_name = 'list/turma_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = 'Lista de Turmas'
+        return context
+
+# Esse vai ser um exemplo de lista do ponto de vista do aluno
+# Só vamos listar as turmas que o aluno está presente
 class TurmaListView(generic.ListView):
     model = models.Turma
     template_name = 'list/turma_list.html'
+
+    # Este é o método para fazer o filtro
+    def get_queryset(self):
+        # Este é um exemplo de quando só vai trazer a turma que o representante
+        # é o usuário que está logado
+        # self.object_list = models.Turma.objects.filter(
+        #     representante=self.request.user)
+
+        # Quando tem uma relação N para N traz todos as turmas desde que
+        # o usuário seja um dos alunos matriculados nela
+        self.object_list = models.Turma.objects.filter(
+            alunos=self.request.user)
+
+        return self.object_list
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -237,9 +265,31 @@ class AtendimentoListView(generic.ListView):
         context['titulo'] = 'Lista de Atendimentos'
         return context
 
+# Esta vai servir para trazer todos os avisos para o admin/representante
+class AdminAvisoListView(generic.ListView):
+    model = models.Aviso
+    template_name = 'list/aviso_list.html'
+
+    def get_context_data(selfself, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = 'Lista de Avisos'
+        return context
+
+# Este só vai trazer os avisos das turmas que o usuário logado (aluno) está
 class AvisoListView(generic.ListView):
     model = models.Aviso
     template_name = 'list/aviso_list.html'
+
+    # Este é o método para fazer o filtro
+    def get_queryset(self):
+        # Neste caso vai buscar os avisos somente quando a turma desse aviso
+        # tem o usuário logado como um dos alunos, por isso:
+        # turma__alunos
+        # O __ consegue buscar a relação turmaXaviso
+        self.object_list = models.Aviso.objects.filter(
+            turma__alunos=self.request.user)
+
+        return self.object_list
 
     def get_context_data(selfself, **kwargs):
         context = super().get_context_data(**kwargs)
