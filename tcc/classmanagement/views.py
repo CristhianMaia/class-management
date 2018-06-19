@@ -151,6 +151,37 @@ class AvisoCreateView(LoginRequiredMixin, CreateView):  #Cadastro de Aviso
 
 # --------------- FIM DOS CADASTROS ---------------------#
 
+
+# --------------- UpdateViews --------------- #
+
+
+class UserUpdateView(LoginRequiredMixin, UpdateView):
+    model = User
+    fields = [
+        'first_name',
+        'last_name',
+        'email',
+        # 'is_active'
+    ]
+    template_name = 'form.html'
+
+    # form_class = RegistrarUserForm
+    success_url = reverse_lazy('index') # pra onde ir depois de cadastrar
+
+    # Busca o usuário atual da seção
+    def get_object(self, **kwargs):
+        object = User.objects.get(pk=self.request.user.pk)
+        return object
+
+    # Como enviar outros dados para tela
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['titulo'] = 'Alterar meus dados'
+        context['input'] = 'Atualizar'
+        return context
+
+
 #----------------List View---------------#
 class UserListView(generic.ListView):
     model = User

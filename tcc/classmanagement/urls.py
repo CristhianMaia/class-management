@@ -34,6 +34,10 @@ urlpatterns = [
     path('cadastrar/atendimento/', views.AtendimentoCreateView.as_view(), name='cadastrar_atendimento'),
     path('cadastrar/aviso/', views.AvisoCreateView.as_view(), name='cadastrar_aviso'),
 
+#--------Atualizar Cadastros--------#
+    path('meus-dados/', views.UserUpdateView.as_view(), name='meus-dados'),
+
+
 #--------Listas--------#
     path('visualizar/alunos', views.UserListView.as_view(), name='visualizar_aluno'),
     path('visualizar/professor', views.ProfessorListView.as_view(), name='visualizar_professor'),
