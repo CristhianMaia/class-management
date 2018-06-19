@@ -23,27 +23,23 @@
     <header class="bg-primary text-white">
       <div class="container text-center">
         <h1>Class Management</h1>
-        <p class="lead">Faça o Login ou Registro para acessar o sistema.</p>
+        <p class="lead">Logout realizado com sucesso!</p>
       </div>
       <div class="container text-center">
 
         <!-- Para organizar as coisas na tela, criamos linhas e colunas.
         Para centralizar essas colunas usamos a classe abaixo junto com row -->
         <div class="row justify-content-md-center">
-          <div class="col-md-4">
+          <div class="col-md-6">
+            <div class="alert alert-warning" role="alert">
+              <strong>Você será redirecionado para a página inicial em 5 segundos.</strong>
 
-          <form method="post" action="">
-            {% csrf_token %}
-            {% bootstrap_form form %}
-
-            <br>
-            <input type="submit" value="Entrar" class="btn btn-primary btn-sm" />
-          </form>
+              <!-- Redireciona o usuário -->
+              <meta http-equiv="refresh" content="5;URL={% url 'index' %}">
+            </div>
+          </div>
         </div>
-    </div>
         <br>
-        <!-- <a href="/turmas"><input type="submit" value="Login" /></a> -->
-        <p>Não possui um cadastro em nosso sistema? <a href="{% url 'cadastrar_user' %}">Clique aqui</a></p>
       </div>
       <br><br><br><br>
     </header>

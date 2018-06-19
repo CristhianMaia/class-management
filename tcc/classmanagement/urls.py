@@ -16,7 +16,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from . import views
-from django.contrib.auth import views as auth_views
 from django.conf.urls import include
 
 
@@ -24,7 +23,7 @@ urlpatterns = [
     path('', views.Index.as_view(), name="index"),
 
     path('turmas/', views.TurmasTemplateView.as_view(), name='turmas'),  # Tela das turmas disponiveis para o usuario
-    path('login/', views.Login.as_view(), name='login'),
+    # path('login/', views.Login.as_view(), name='login'),
 
 #-------Cadastros------#
     path('registrar/', views.UserCreateView.as_view(), name='cadastrar_user'),

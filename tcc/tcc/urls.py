@@ -16,7 +16,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
+# Inclui as Views que o Django implementou aqui
+from django.contrib.auth import views as auth_views
+# Esse para redirecionar pelo nome da url
+from django.urls import reverse_lazy
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('classmanagement.urls'))
+    path('', include('classmanagement.urls')),
+
+    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(
+        template_name='logout.html'
+        ), name='login'),
+
 ]
