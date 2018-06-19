@@ -22,7 +22,7 @@ class UserCreateView(CreateView, #AnonymousRequiredMixin
     model = User
     template_name = 'form.html'
     form_class = RegistrarUserForm
-    success_url = reverse_lazy('index') # pra onde ir depois de cadastrar
+    success_url = reverse_lazy('login') # pra onde ir depois de cadastrar
     authenticated_redirect_url = '/turmas'
 
     # Como enviar outros dados para tela

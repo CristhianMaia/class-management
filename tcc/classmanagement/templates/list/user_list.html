@@ -6,6 +6,24 @@
 <!-- Substitui o topo do base por este.
 Um monte de <br> serve para o texto do conteúdo não ficar embaixo do menu -->
 {% block lista %}
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Usuário</th>
+      <th>Nome</th>
+      <th>Email</th>
+      <th>Opções</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+
+
 <ul>
 {% for user in object_list %}
     <li>{{ user.username }}</li>
@@ -17,4 +35,3 @@ Um monte de <br> serve para o texto do conteúdo não ficar embaixo do menu -->
 {% endfor %}
 </ul>
 {% endblock %}
-
