@@ -53,6 +53,6 @@ urlpatterns = [
     path('turma/1/adicionar_aluno/', views.AlunosCreateView.as_view(), name='cadastrar aluno'),
 
 #------Autenticação-----#
-    path('accounts/', include('django.contrib.auth.urls'), name='perfil'),
+    # path('accounts/', include('django.contrib.auth.urls'), name='perfil'),
 
 ]

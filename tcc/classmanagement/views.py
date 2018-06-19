@@ -291,6 +291,3 @@ class AlunosCreateView(LoginRequiredMixin, CreateView): #Cadastro de Alunos
         context['titulo'] = 'Cadastro de Turma'
         context['input'] = 'Adicionar Aluno'
         return context
-
-
-

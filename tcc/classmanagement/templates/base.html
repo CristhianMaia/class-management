@@ -46,35 +46,6 @@
                 <a class="nav-link js-scroll-trigger" href="#contact">Contato</a>
               </li>
               {% endblock %}
-              {% if request.user.is_authenticated %}
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Cadastros
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="{% url 'cadastrar_turma' %}">Turma</a>
-                  <a class="dropdown-item" href="{% url 'cadastrar_professor' %}">Professor</a>
-                  <a class="dropdown-item" href="{% url 'cadastrar_colegio' %}">Colegio</a>
-                  <a class="dropdown-item" href="{% url 'cadastrar_materia' %}">Matéria</a>
-                  <a class="dropdown-item" href="{% url 'cadastrar_atendimento' %}">Atendimento</a>
-                  <a class="dropdown-item" href="{% url 'cadastrar_aviso' %}">Aviso</a>
-                </div>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Listas
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="{% url 'visualizar_aluno' %}">Aluno</a>
-                  <a class="dropdown-item" href="{% url 'visualizar_turma' %}">Turma</a>
-                  <a class="dropdown-item" href="{% url 'visualizar_professor' %}">Professor</a>
-                  <a class="dropdown-item" href="{% url 'visualizar_colegio' %}">Colegio</a>
-                  <a class="dropdown-item" href="{% url 'visualizar_materia' %}">Matéria</a>
-                  <a class="dropdown-item" href="{% url 'visualizar_atendimento' %}">Atendimento</a>
-                  <a class="dropdown-item" href="{% url 'visualizar_aviso' %}">Aviso</a>
-                </div>
-              </li>
-              {% endif %}
 
             </ul>
 
@@ -83,11 +54,39 @@
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Cadastros
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{% url 'cadastrar_turma' %}">Turma</a>
+                    <a class="dropdown-item" href="{% url 'cadastrar_professor' %}">Professor</a>
+                    <a class="dropdown-item" href="{% url 'cadastrar_colegio' %}">Colegio</a>
+                    <a class="dropdown-item" href="{% url 'cadastrar_materia' %}">Matéria</a>
+                    <a class="dropdown-item" href="{% url 'cadastrar_atendimento' %}">Atendimento</a>
+                    <a class="dropdown-item" href="{% url 'cadastrar_aviso' %}">Aviso</a>
+                  </div>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Listas
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{% url 'visualizar_aluno' %}">Aluno</a>
+                    <a class="dropdown-item" href="{% url 'visualizar_turma' %}">Turma</a>
+                    <a class="dropdown-item" href="{% url 'visualizar_professor' %}">Professor</a>
+                    <a class="dropdown-item" href="{% url 'visualizar_colegio' %}">Colegio</a>
+                    <a class="dropdown-item" href="{% url 'visualizar_materia' %}">Matéria</a>
+                    <a class="dropdown-item" href="{% url 'visualizar_atendimento' %}">Atendimento</a>
+                    <a class="dropdown-item" href="{% url 'visualizar_aviso' %}">Aviso</a>
+                  </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{request.user.first_name}} {{request.user.last_name}}
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="admin/auth/user/{{request.user.id}}/change/">Meu cadastro</a>
-                    <a class="dropdown-item" href="admin/auth/user/{{request.user.id}}/change/">Alterar senha</a>
+                    <a class="dropdown-item" href="">Meu cadastro</a>
+                    <a class="dropdown-item" href="{% url 'alterar-senha' %}">Alterar senha</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="/logout">Sair</a>
                   </div>

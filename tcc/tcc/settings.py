@@ -124,3 +124,5 @@ STATIC_URL = '/static/'
 
 # Redirecionar depois do Login
 LOGIN_REDIRECT_URL = '/'
+# Endereço de login
+LOGIN_URL = '/entrar'
