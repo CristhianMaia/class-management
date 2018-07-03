@@ -5,12 +5,29 @@
 {% endblock %}
 
 {% block lista %}
-<ul>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Email</th>
+      <th class="center">Opções</th>
+    </tr>
+  </thead>
+  <tbody>
 {% for professor in object_list %}
-    <li>{{ professor.nome }} - {{professor.email}}</li>
+    <td>{{ professor.nome }}</td>
+    <td>{{ professor.email }}</td>
+    <td class="center">
+        <a href="{{professor.id}}" class="">
+          <i class="fa fa-edit" aria-hidden></i>
+        </a>
+      </td>
+    </tr>
 {% empty %}
-    <li>Vazio.</li>
+    <tr>
+      <td colspan="4">Nenhum registro encontrado!</td>
+    </tr>
 {% endfor %}
-</ul>
-
+</tbody>
+</table>
 {% endblock %}

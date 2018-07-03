@@ -5,19 +5,39 @@
 {% endblock %}
 
 {% block lista %}
-<ul>
-{% for atendimento in object_list %}
-    <li>{{ atendimento.turma }}</li>
-    <li>{{ atendimento.materia }}</li>
-    <li>{{ atendimento.tipo_aviso }}</li>
-    <li>{{ atendimento.comentarios }}</li>
-    <li>{{ atendimento.data_post }}</li>
-    <li>{{ atendimento.ultima_modificacao }}</li>
-    <li>{{ atendimento.data_final }}</li>
-    <br>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Turma</th>
+      <th>Materia</th>
+      <th>Tipo Aviso</th>
+      <th>Comentarios</th>
+      <th>Data de postagem</th>
+      <th>Ultima modificação</th>
+      <th>Data de entrega</th>
+      <th class="center">Opções</th>
+    </tr>
+  </thead>
+  <tbody>
+{% for aviso in object_list %}
+   <td>{{ aviso.turma }}</td>
+    <td>{{ aviso.materia }}</td>
+    <td>{{ aviso.tipo_aviso }}</td>
+    <td>{{ aviso.comentarios }}</td>
+    <td>{{ aviso.data_post }}</td>
+    <td>{{ aviso.ultima_modificacao }}</td>
+    <td>{{ aviso.data_final }}</td>
+    <td class="center">
+        <a href="{{turma.id}}" class="">
+          <i class="fa fa-edit" aria-hidden></i>
+        </a>
+      </td>
+    </tr>
 {% empty %}
-    <li>Vazio.</li>
+    <tr>
+      <td colspan="4">Nenhum registro encontrado!</td>
+    </tr>
 {% endfor %}
-</ul>
-
+</tbody>
+</table>
 {% endblock %}

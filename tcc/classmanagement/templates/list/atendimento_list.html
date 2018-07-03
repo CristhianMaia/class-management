@@ -5,16 +5,33 @@
 {% endblock %}
 
 {% block lista %}
-<ul>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Turma</th>
+      <th>Professor</th>
+      <th>Dia</th>
+      <th>Horario</th>
+      <th class="center">Opções</th>
+    </tr>
+  </thead>
+  <tbody>
 {% for atendimento in object_list %}
-    <li>{{ atendimento.turma }}</li>
-    <li>{{ atendimento.professor }}</li>
-    <li>{{ atendimento.dia }}</li>
-    <li>{{ atendimento.horario_inicio }} ~ {{ atendimento.horario_fim }}</li>
-    <br>
+    <td>{{ atendimento.turma }}</td>
+    <td>{{ atendimento.professor }}</td>
+    <td>{{ atendimento.dia }}</td>
+    <td>{{ atendimento.horario_inicio }} ~ {{ atendimento.horario_fim }}</td>
+    <td class="center">
+        <a href="{{atendimento.id}}" class="">
+          <i class="fa fa-edit" aria-hidden></i>
+        </a>
+      </td>
+    </tr>
 {% empty %}
-    <li>Vazio.</li>
+    <tr>
+      <td colspan="4">Nenhum registro encontrado!</td>
+    </tr>
 {% endfor %}
-</ul>
-
+</tbody>
+</table>
 {% endblock %}

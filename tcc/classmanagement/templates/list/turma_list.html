@@ -5,17 +5,37 @@
 {% endblock %}
 
 {% block lista %}
-<ul>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Alunos</th>
+      <th>Representante</th>
+      <th>Colegio</th>
+      <th>Data de Cadastro</th>
+      <th class="center">Opções</th>
+    </tr>
+  </thead>
+  <tbody>
 {% for turma in object_list %}
-    <li>{{ turma.nome }}</li>
-    <li>{{ turma.alunos }}</li>
-    <li>{{ turma.representante }}</li>
-    <li>{{ turma.colegio }}</li>
-    <li>{{ turma.data_cadastro }}</li>
-    <br>
+    <td>{{ turma.nome }}</td>
+    <td>
+        {{ turma.alunos }}
+    </td>
+    <td>{{ turma.representante }}</td>
+    <td>{{ turma.colegio }}</td>
+    <td>{{ turma.data_cadastro }}</td>
+    <td class="center">
+        <a href="{{turma.id}}" class="">
+          <i class="fa fa-edit" aria-hidden></i>
+        </a>
+      </td>
+    </tr>
 {% empty %}
-    <li>Vazio.</li>
+    <tr>
+      <td colspan="4">Nenhum registro encontrado!</td>
+    </tr>
 {% endfor %}
-</ul>
-
+</tbody>
+</table>
 {% endblock %}

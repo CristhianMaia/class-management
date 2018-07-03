@@ -23,7 +23,7 @@ urlpatterns = [
     path('', views.Index.as_view(), name="index"),
 
     path('turmas/', views.TurmasTemplateView.as_view(), name='turmas'),  # Tela das turmas disponiveis para o usuario
-    # path('login/', views.Login.as_view(), name='login'),
+    #path('login/', views.Login.as_view(), name='login'),
 
 #-------Cadastros------#
     path('registrar/', views.UserCreateView.as_view(), name='cadastrar_user'),
@@ -57,6 +57,5 @@ urlpatterns = [
     path('turma/1/adicionar_aluno/', views.AlunosCreateView.as_view(), name='cadastrar aluno'),
 
 #------Autenticação-----#
-    # path('accounts/', include('django.contrib.auth.urls'), name='perfil'),
 
 ]

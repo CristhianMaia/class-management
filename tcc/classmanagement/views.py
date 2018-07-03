@@ -23,7 +23,6 @@ class UserCreateView(CreateView, #AnonymousRequiredMixin
     template_name = 'form.html'
     form_class = RegistrarUserForm
     success_url = reverse_lazy('login') # pra onde ir depois de cadastrar
-    authenticated_redirect_url = '/turmas'
 
     # Como enviar outros dados para tela
     def get_context_data(self, **kwargs):
@@ -33,12 +32,11 @@ class UserCreateView(CreateView, #AnonymousRequiredMixin
         context['input'] = 'Enviar'
         return context
 
-
 class TurmaCreateView(LoginRequiredMixin, CreateView): #Tela de crianção de turmas
     model = models.Turma
     template_name = 'form.html'
     login_url = '/login/'
-    success_url = reverse_lazy('index') # pra onde ir depois de cadastrar
+    success_url = reverse_lazy('visualizar_turma') # pra onde ir depois de cadastrar
     fields = [
         'nome',
         'alunos',
@@ -57,7 +55,7 @@ class ProfessorCreateView(LoginRequiredMixin, CreateView):  # Cadastro de Profes
     template_name = 'form.html'
     model = models.Professor
     login_url = '/login/'
-    success_url = reverse_lazy('index')  # pra onde ir depois de cadastrar
+    success_url = reverse_lazy('visualizar_professor')  # pra onde ir depois de cadastrar
     fields = [
         'nome',
         'email'
@@ -75,7 +73,7 @@ class ColegioCreateView(LoginRequiredMixin, CreateView):  # Cadastro de Professo
     template_name = 'form.html'
     model = models.Colegio
     login_url = '/login/'
-    success_url = reverse_lazy('index')  # pra onde ir depois de cadastrar
+    success_url = reverse_lazy('visualizar_colegio')  # pra onde ir depois de cadastrar
     fields = [
         'nome'
     ]
@@ -92,7 +90,7 @@ class MateriaCreateView(LoginRequiredMixin, CreateView): #Cadastro de Materias
     template_name = 'form.html'
     model = models.Materia
     login_url = '/login/'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('visualizar_materia')
     fields = [
         'nome',
         'local',
@@ -114,7 +112,7 @@ class AtendimentoCreateView(LoginRequiredMixin, CreateView): #Cadastro de atendi
     template_name = 'form.html'
     model = models.Atendimento
     login_url = '/login/'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('visualizar_atendimento')
     fields = [
         'turma',
         'professor',
@@ -133,7 +131,7 @@ class AvisoCreateView(LoginRequiredMixin, CreateView):  #Cadastro de Aviso
     template_name = 'form.html'
     model = models.Aviso
     login_url = '/login/'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('visualizar_aviso')
     fields = [
         'turma',
         'materia',
@@ -239,7 +237,6 @@ class TurmaListView(generic.ListView):
         # o usuário seja um dos alunos matriculados nela
         self.object_list = models.Turma.objects.filter(
             alunos=self.request.user)
-
         return self.object_list
 
     def get_context_data(self, **kwargs):
@@ -330,7 +327,6 @@ class TurmaTemplateView(LoginRequiredMixin,TemplateView): #Tela da turma que foi
         return context
 
 
-#-----------------------ListView--------------------------#
 class HorariosTemplateView(LoginRequiredMixin,TemplateView): #Tela da turma que foi selecionada
     template_name = 'horarios.html'
     login_url = '/login/'

@@ -5,17 +5,37 @@
 {% endblock %}
 
 {% block lista %}
-<ul>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Turma</th>
+      <th>Professor</th>
+      <th>Dia da Semana</th>
+      <th>Local</th>
+      <th>Horario</th>
+      <th class="center">Opções</th>
+    </tr>
+  </thead>
+  <tbody>
 {% for materia in object_list %}
-    <li>{{ materia.nome }}</li>
-    <li>{{ materia.turma }}</li>
-    <li>{{ materia.professor }}</li>
-    <li>{{ materia.dia }} ~ {{ materia.local }}</li>
-    <li>{{ materia.horario_inicio }} ~ {{ materia.horario_fim }}</li>
-    <br>
+    <td>{{ materia.nome }}</td>
+    <td>{{ materia.turma }}</td>
+    <td>{{ materia.professor }}</td>
+    <td>{{ materia.dia }}</td>
+    <td>{{ materia.local }}</td>
+    <td>{{ materia.horario_inicio }} ~ {{ materia.horario_fim }}</td>
+    <td class="center">
+        <a href="{{turma.id}}" class="">
+          <i class="fa fa-edit" aria-hidden></i>
+        </a>
+      </td>
+    </tr>
 {% empty %}
-    <li>Vazio.</li>
+    <tr>
+      <td colspan="4">Nenhum registro encontrado!</td>
+    </tr>
 {% endfor %}
-</ul>
-
+</tbody>
+</table>
 {% endblock %}
