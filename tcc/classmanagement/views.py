@@ -58,7 +58,8 @@ class TurmaCreateView(GroupRequiredMixin, LoginRequiredMixin, CreateView): #Tela
         return super().form_valid(form)
 
 
-class ProfessorCreateView(LoginRequiredMixin, CreateView):  # Cadastro de Professores
+class ProfessorCreateView(GroupRequiredMixin, LoginRequiredMixin, CreateView):  # Cadastro de Professores
+    group_required = u"representante"
     template_name = 'form.html'
     model = models.Professor
     login_url = '/login/'
@@ -93,7 +94,8 @@ class ColegioCreateView(LoginRequiredMixin, CreateView):  # Cadastro de Professo
         return context
 
 
-class MateriaCreateView(LoginRequiredMixin, CreateView): #Cadastro de Materias
+class MateriaCreateView(GroupRequiredMixin, LoginRequiredMixin, CreateView): #Cadastro de Materias
+    group_required = u"representante"
     template_name = 'form.html'
     model = models.Materia
     login_url = '/login/'
@@ -117,7 +119,8 @@ class MateriaCreateView(LoginRequiredMixin, CreateView): #Cadastro de Materias
         return context
 
 
-class AtendimentoCreateView(LoginRequiredMixin, CreateView): #Cadastro de atendimentos
+class AtendimentoCreateView(GroupRequiredMixin, LoginRequiredMixin, CreateView): #Cadastro de atendimentos
+    group_required = u"representante"
     template_name = 'form.html'
     model = models.Atendimento
     login_url = '/login/'
@@ -136,7 +139,8 @@ class AtendimentoCreateView(LoginRequiredMixin, CreateView): #Cadastro de atendi
         context['input'] = 'Adicionar Atendimento'
         return context
 
-class AvisoCreateView(LoginRequiredMixin, CreateView):  #Cadastro de Aviso
+class AvisoCreateView(GroupRequiredMixin, LoginRequiredMixin, CreateView):  #Cadastro de Aviso
+    group_required = u"representante"
     template_name = 'form.html'
     model = models.Aviso
     login_url = '/login/'
