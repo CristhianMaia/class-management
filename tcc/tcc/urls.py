@@ -30,7 +30,7 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(
         template_name='logout.html'
         ), name='logout'),
-    path('/meus-dados/alterar-senha/', auth_views.PasswordChangeView.as_view(
+    path('meus-dados/alterar-senha/', auth_views.PasswordChangeView.as_view(
         template_name='form.html',
         success_url=reverse_lazy('index'),
         extra_context={'titulo':'Alterar minha senha', 'input': 'Alterar'}

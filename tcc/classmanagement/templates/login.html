@@ -21,8 +21,9 @@
 
 {% block conteudo %}
 
-
- <meta http-equiv="refresh" content="0; url={% url 'index' %}" />
+    {% if user.is_authenticated %}
+    <meta http-equiv="refresh" content="0;URL={% url 'index' %}">
+    {% else %}
 
     <header class="bg-primary text-white">
       <div class="container text-center">
@@ -51,6 +52,7 @@
       </div>
       <br><br><br><br>
     </header>
+    {% endif %}
 {% endblock %}
 
 

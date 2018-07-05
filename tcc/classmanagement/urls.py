@@ -39,7 +39,7 @@ urlpatterns = [
 
 
 #--------Listas--------#
-    path('visualizar/alunos', views.UserListView.as_view(), name='visualizar_aluno'),
+    path('visualizar/alunos', views.UserListView.as_view(), name='visualizar_usuarios'),
     path('visualizar/professor', views.ProfessorListView.as_view(), name='visualizar_professor'),
     path('visualizar/colegio/', views.ColegioListView.as_view(), name='visualizar_colegio'),
     path('visualizar/turma/', views.TurmaListView.as_view(), name='visualizar_turma'),

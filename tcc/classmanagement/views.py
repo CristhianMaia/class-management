@@ -3,7 +3,7 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.models import User
 from . import models
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from braces.views import GroupRequiredMixin
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -32,7 +32,8 @@ class UserCreateView(CreateView, #AnonymousRequiredMixin
         context['input'] = 'Enviar'
         return context
 
-class TurmaCreateView(LoginRequiredMixin, CreateView): #Tela de crianção de turmas
+class TurmaCreateView(GroupRequiredMixin, LoginRequiredMixin, CreateView): #Tela de crianção de turmas
+    group_required = u"representante"
     model = models.Turma
     template_name = 'form.html'
     login_url = '/login/'
@@ -40,7 +41,7 @@ class TurmaCreateView(LoginRequiredMixin, CreateView): #Tela de crianção de tu
     fields = [
         'nome',
         'alunos',
-        'representante',
+        #'representante',
         'colegio'
     ]
     def get_context_data(self, **kwargs):
@@ -49,6 +50,12 @@ class TurmaCreateView(LoginRequiredMixin, CreateView): #Tela de crianção de tu
         context['titulo'] = 'Cadastro de Turma'
         context['input'] = 'Cadastrar'
         return context
+
+    # trabalhar com os dados do formulário antes de salvar
+    def form_valid(self, form):
+        # Definindo o usuário da sessão como representante
+        form.instance.representante = self.request.user
+        return super().form_valid(form)
 
 
 class ProfessorCreateView(LoginRequiredMixin, CreateView):  # Cadastro de Professores
@@ -102,6 +109,8 @@ class MateriaCreateView(LoginRequiredMixin, CreateView): #Cadastro de Materias
     ]
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        context['turmas'] = models.Turma.objects.filter(representante=self.request.user)
 
         context['titulo'] = 'Cadastro de Materias'
         context['input'] = 'Adicionar Matéria'
@@ -187,7 +196,7 @@ class UserListView(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['titulo'] = 'Lista de Alunos'
+        context['titulo'] = 'Lista de Usuarios'
         return context
 
 class ProfessorListView(generic.ListView):
