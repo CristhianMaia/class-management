@@ -101,13 +101,12 @@ class Atendimento(models.Model):
         ('Qui', 'Quinta'),
         ('Sex', 'Sexta'),
         ('Sab', 'Sabado'),
-        ('Dom', 'Domingo'),
     )
     turma                   = models.ForeignKey(Turma, on_delete=models.PROTECT, blank=False, null=False, help_text='Obrigatório.')
     professor               = models.ForeignKey(Professor, on_delete=models.PROTECT, blank=False, null=False, help_text='Obrigatório.')
-    dia                     = models.CharField(max_length=3, choices=DIA_CHOICES, blank=False, null=False, help_text='Obrigatório.')
-    horario_inicio          = models.CharField(max_length=5, blank=False, null=False, help_text='Obrigatório.', verbose_name="Horario de inicio")
-    horario_fim             = models.CharField(max_length=5, blank=False, null=False, help_text='Obrigatório.', verbose_name="Horario final")
+    dia                     = models.CharField(max_length=3, choices=DIA_CHOICES, blank=False, null=False, help_text='Obrigatório.', verbose_name='Dia da semana')
+    horario_inicio          = models.CharField(max_length=5, blank=False, null=False, help_text='Exemplo: "20:00"')
+    horario_fim             = models.CharField(max_length=5, blank=False, null=False, help_text='Exemplo: "20:50"')
 
     # Método que vai retornar o nome do objeto quando for imprimir um objeto, como se fosse um toString
     def __str__(self):

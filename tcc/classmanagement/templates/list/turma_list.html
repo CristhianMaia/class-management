@@ -26,7 +26,7 @@
     <td>{{ turma.colegio }}</td>
     <td>{{ turma.data_cadastro }}</td>
     <td class="center">
-        <a href="{{turma.id}}" class="">
+        <a href="{% url 'atualizar_turma' pk=turma.id %}" class="">
           <i class="fa fa-edit" aria-hidden></i>
         </a>
         <a href="">

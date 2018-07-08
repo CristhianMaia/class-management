@@ -18,7 +18,7 @@
     <td>{{ colegio.nome }}</td>
     <td>{{ colegio.data_cadastro }}</td>
     <td class="center">
-        <a href="{{turma.id}}" class="">
+        <a href="{% url 'atualizar_colegio' pk=colegio.id %}" class="">
           <i class="fa fa-edit" aria-hidden></i>
         </a>
       </td>

@@ -26,7 +26,7 @@
     <td>{{ materia.local }}</td>
     <td>{{ materia.horario_inicio }} ~ {{ materia.horario_fim }}</td>
     <td class="center">
-        <a href="{{turma.id}}" class="">
+        <a href="{% url 'atualizar_materia' pk=materia.id %}" class="">
           <i class="fa fa-edit" aria-hidden></i>
         </a>
       </td>

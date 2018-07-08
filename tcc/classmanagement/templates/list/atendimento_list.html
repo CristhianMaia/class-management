@@ -22,7 +22,7 @@
     <td>{{ atendimento.dia }}</td>
     <td>{{ atendimento.horario_inicio }} ~ {{ atendimento.horario_fim }}</td>
     <td class="center">
-        <a href="{{atendimento.id}}" class="">
+        <a href="{% url 'atualizar_atendimento' pk=atendimento.id %}" class="">
           <i class="fa fa-edit" aria-hidden></i>
         </a>
       </td>

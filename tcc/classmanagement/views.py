@@ -5,6 +5,7 @@ from . import models
 from django.contrib.auth.mixins import LoginRequiredMixin
 from braces.views import GroupRequiredMixin
 from django.urls import reverse_lazy
+#from django.urlresolvers import reverse_lazy
 from django.views import generic
 
 from .forms import RegistrarUserForm
@@ -41,7 +42,6 @@ class TurmaCreateView(GroupRequiredMixin, LoginRequiredMixin, CreateView): #Tela
     fields = [
         'nome',
         'alunos',
-        #'representante',
         'colegio'
     ]
     def get_context_data(self, **kwargs):
@@ -155,8 +155,8 @@ class AvisoCreateView(GroupRequiredMixin, LoginRequiredMixin, CreateView):  #Cad
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['titulo'] = 'Cadastrar aviso'
-        context['input'] = 'Adicionar'
+        context['titulo'] = 'Cadastrar Aviso'
+        context['input'] = 'Adicionar Aviso'
         return context
 
 
@@ -164,8 +164,6 @@ class AvisoCreateView(GroupRequiredMixin, LoginRequiredMixin, CreateView):  #Cad
 
 
 # --------------- UpdateViews --------------- #
-
-
 class UserUpdateView(LoginRequiredMixin, UpdateView):
     model = User
     fields = [
@@ -193,6 +191,125 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
         return context
 
 
+class TurmaUpdateView(GroupRequiredMixin, LoginRequiredMixin, UpdateView): #Tela de crianção de turmas
+    group_required = u"representante"
+    model = models.Turma
+    template_name = 'form.html'
+    login_url = '/login/'
+    success_url = reverse_lazy('visualizar_turma')
+    fields = [
+        'nome',
+        'alunos',
+        'representante',
+        'colegio'
+    ]
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['titulo'] = 'Editar Turma'
+        context['input'] = 'Salvar'
+        return context
+
+
+class ProfessorUpdateView(GroupRequiredMixin, LoginRequiredMixin, UpdateView):  #Cadastro de Aviso
+    group_required = u"representante"
+    template_name = 'form.html'
+    model = models.Professor
+    login_url = '/login/'
+    success_url = reverse_lazy('visualizar_professor')  # pra onde ir depois de cadastrar
+    fields = [
+        'nome',
+        'email'
+    ]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['titulo'] = 'Editar Professor'
+        context['input'] = 'Salvar'
+        return context
+
+
+class ColegioUpdateView(LoginRequiredMixin, UpdateView):  # Cadastro de Professores
+    template_name = 'form.html'
+    model = models.Colegio
+    login_url = '/login/'
+    success_url = reverse_lazy('visualizar_colegio')  # pra onde ir depois de cadastrar
+    fields = [
+        'nome'
+    ]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['titulo'] = 'Editar Colegio'
+        context['input'] = 'Salvar'
+        return context
+
+
+class MateriaUpdateView(GroupRequiredMixin, LoginRequiredMixin, UpdateView): #Cadastro de Materias
+    group_required = u"representante"
+    template_name = 'form.html'
+    model = models.Materia
+    login_url = '/login/'
+    success_url = reverse_lazy('visualizar_materia')
+    fields = [
+        'nome',
+        'local',
+        'dia',
+        'horario_inicio',
+        'horario_fim',
+        'turma',
+        'professor'
+    ]
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['titulo'] = 'Editar Materia'
+        context['input'] = 'Salvar'
+        return context
+
+
+class AtendimentoUpdateView(GroupRequiredMixin, LoginRequiredMixin, UpdateView): #Cadastro de atendimentos
+    group_required = u"representante"
+    template_name = 'form.html'
+    model = models.Atendimento
+    login_url = '/login/'
+    success_url = reverse_lazy('visualizar_atendimento')
+    fields = [
+        'turma',
+        'professor',
+        'dia',
+        'horario_inicio',
+        'horario_fim'
+    ]
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['titulo'] = 'Editar Atendimento'
+        context['input'] = 'Salvar'
+        return context
+
+
+class AvisoUpdateView(GroupRequiredMixin, LoginRequiredMixin, UpdateView):  #Cadastro de Aviso
+    group_required = u"representante"
+    template_name = 'form.html'
+    model = models.Aviso
+    login_url = '/login/'
+    success_url = reverse_lazy('visualizar_aviso')
+    fields = [
+        'turma',
+        'materia',
+        'tipo_aviso',
+        'comentarios',
+        'data_final'
+    ]
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['titulo'] = 'Editar Aviso'
+        context['input'] = 'Salvar'
+        return context
 #----------------List View---------------#
 class UserListView(generic.ListView):
     model = User

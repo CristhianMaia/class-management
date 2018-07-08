@@ -22,13 +22,13 @@
 {% for aviso in object_list %}
    <td>{{ aviso.turma }}</td>
     <td>{{ aviso.materia }}</td>
-    <td>{{ aviso.tipo_aviso }}</td>
+    <td>{{ aviso.get_tipo_aviso_display }}</td>
     <td>{{ aviso.comentarios }}</td>
     <td>{{ aviso.data_post }}</td>
     <td>{{ aviso.ultima_modificacao }}</td>
     <td>{{ aviso.data_final }}</td>
     <td class="center">
-        <a href="{{turma.id}}" class="">
+        <a href="{% url 'atualizar_aviso' pk=aviso.id %}" class="">
           <i class="fa fa-edit" aria-hidden></i>
         </a>
       </td>
