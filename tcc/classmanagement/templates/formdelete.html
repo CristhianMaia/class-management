@@ -1,0 +1,58 @@
+<!-- Faz ele ficar igual o arquivo base.html e com as mesmas seções -->
+{% extends "base.html" %}
+
+<!-- Carrega os arquivos necessários -->
+{% load static %}
+{% load bootstrap4 %}
+
+{% block menu %}
+{{ block.super }}
+{% block menu_index %}
+{% endblock %}
+{% endblock %}
+<!-- Faz o menu exatamente como o que está no arquivo base, por isso o .super -->
+{% block title %}
+{{titulo}}
+{% endblock %}
+
+<!-- Substitui o topo do base por este.
+Um monte de <br> serve para o texto do conteúdo não ficar embaixo do menu -->
+{% block topo %}
+<br>
+<br>
+{% endblock %}
+
+<!-- Faz assim pra ficar sem nada, por isso não tem br nem .super -->
+{% block topo2 %} {% endblock %}
+
+<!-- Aqui vai todo o conteúdo que vc quer colocar na página -->
+{% block conteudo %}
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 mx-auto">
+      <br>
+
+      <h2>{{titulo}}</h2>
+
+      <hr>
+<form method="post">
+  {% csrf_token %}
+  <br>
+    <p>Tem certeza que deseja deletar {{cadastro}}? </p>
+    <input type="submit" value="{{input}}" class="btn btn-primary btn-sm" />
+</form>
+
+
+    </div>
+  </div>
+</div>
+<br>
+{% endblock %}
+
+{% block footer %}
+{{ block.super }}
+{% endblock %}
+
+{% block scripts_js %}
+{{ block.super }}
+{% endblock %}
