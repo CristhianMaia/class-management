@@ -1,5 +1,5 @@
 from django.views.generic import TemplateView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.models import User
 from . import models
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -7,8 +7,7 @@ from braces.views import GroupRequiredMixin
 from django.urls import reverse_lazy
 #from django.urlresolvers import reverse_lazy
 from django.views import generic
-
-from .forms import RegistrarUserForm
+from .forms import RegistrarUserForm, AvisoForm
 
 #Telas iniciais
 
@@ -145,19 +144,31 @@ class AvisoCreateView(GroupRequiredMixin, LoginRequiredMixin, CreateView):  #Cad
     model = models.Aviso
     login_url = '/login/'
     success_url = reverse_lazy('visualizar_aviso')
-    fields = [
-        'turma',
-        'materia',
-        'tipo_aviso',
-        'comentarios',
-        'data_final'
-    ]
+
+    # Define um formulário personalizado para esta View
+    form_class = AvisoForm
+
+   # fields = [
+   #     'turma',
+   #     'materia',
+   #     'tipo_aviso',
+   #     'comentarios',
+   #     'data_final'
+   # ]
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         context['titulo'] = 'Cadastrar Aviso'
         context['input'] = 'Adicionar Aviso'
         return context
+
+    # Sobreescreve o método para poder guardar alguns dados no parâmetro 'kwargs'.
+    # Assim podemos enviar dados para o forms.py
+    # neste caso, guardamos o usuário que está acessando o site na posição 'instance'
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['instance'] = self.request.user
+        return kwargs
 
 
 # --------------- FIM DOS CADASTROS ---------------------#
@@ -209,6 +220,12 @@ class TurmaUpdateView(GroupRequiredMixin, LoginRequiredMixin, UpdateView): #Tela
         context['titulo'] = 'Editar Turma'
         context['input'] = 'Salvar'
         return context
+
+    # Função que pega o objeto do ID que está vindo na URL
+    def get_object(self, queryset=None):
+        # Além da pk da URL, verifica se o usuário também é representante
+        self.object = models.Turma.objects.get(pk=self.kwargs['pk'], representante=self.request.user)
+        return self.object
 
 
 class ProfessorUpdateView(GroupRequiredMixin, LoginRequiredMixin, UpdateView):  #Cadastro de Aviso
@@ -308,6 +325,110 @@ class AvisoUpdateView(GroupRequiredMixin, LoginRequiredMixin, UpdateView):  #Cad
         context = super().get_context_data(**kwargs)
 
         context['titulo'] = 'Editar Aviso'
+        context['input'] = 'Salvar'
+        return context
+
+
+#---------------Delete View--------------#
+class TurmaDeleteView(GroupRequiredMixin, LoginRequiredMixin, DeleteView): #Tela de crianção de turmas
+    group_required = u"representante"
+    model = models.Turma
+    template_name = 'formdelete.html'
+    login_url = '/login/'
+    success_url = reverse_lazy('visualizar_turma')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['titulo'] = 'Editar Turma'
+        context['cadastro'] = 'uma Turma'
+        context['input'] = 'Salvar'
+        return context
+
+
+class ProfessorDeleteView(GroupRequiredMixin, LoginRequiredMixin, DeleteView):  #Cadastro de Aviso
+    group_required = u"representante"
+    template_name = 'formdelete.html'
+    model = models.Professor
+    login_url = '/login/'
+    success_url = reverse_lazy('visualizar_professor')  # pra onde ir depois de cadastrar
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['titulo'] = 'Editar Professor'
+        context['cadastro'] = 'um Professor'
+        context['input'] = 'Salvar'
+        return context
+
+
+#    def post(self, *args, **kwargs):
+#        from django.db.models import ProtectedError
+#        try:
+#            return super().delete(self, *args, **kwargs)
+#        except ProtectedError:
+#            return reverse_lazy('protectDelete')
+
+
+class ColegioDeleteView(LoginRequiredMixin, DeleteView):  # Cadastro de Professores
+    template_name = 'formdelete.html'
+    model = models.Colegio
+    login_url = '/login/'
+    success_url = reverse_lazy('visualizar_colegio')  # pra onde ir depois de cadastrar
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['titulo'] = 'Editar Colegio'
+        context['cadastro'] = 'um Colegio'
+        context['input'] = 'Salvar'
+        return context
+
+
+class MateriaDeleteView(GroupRequiredMixin, LoginRequiredMixin, DeleteView): #Cadastro de Materias
+    group_required = u"representante"
+    template_name = 'formdelete.html'
+    model = models.Materia
+    login_url = '/login/'
+    success_url = reverse_lazy('visualizar_materia')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['titulo'] = 'Editar Materia'
+        context['cadastro'] = 'uma Materia'
+        context['input'] = 'Salvar'
+        return context
+
+
+class AtendimentoDeleteView(GroupRequiredMixin, LoginRequiredMixin, DeleteView): #Cadastro de atendimentos
+    group_required = u"representante"
+    template_name = 'formdelete.html'
+    model = models.Atendimento
+    login_url = '/login/'
+    success_url = reverse_lazy('visualizar_atendimento')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['titulo'] = 'Editar Atendimento'
+        context['cadastro'] = 'um Atendimento'
+        context['input'] = 'Salvar'
+        return context
+
+
+class AvisoDeleteView(GroupRequiredMixin, LoginRequiredMixin, DeleteView):  #Cadastro de Aviso
+    group_required = u"representante"
+    template_name = 'formdelete.html'
+    model = models.Aviso
+    login_url = '/login/'
+    success_url = reverse_lazy('visualizar_aviso')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['titulo'] = 'Editar Aviso'
+        context['cadastro'] = 'um Aviso'
         context['input'] = 'Salvar'
         return context
 #----------------List View---------------#

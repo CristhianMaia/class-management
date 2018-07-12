@@ -31,6 +31,9 @@
         <a href="{% url 'atualizar_aviso' pk=aviso.id %}" class="">
           <i class="fa fa-edit" aria-hidden></i>
         </a>
+        <a href="{% url 'deletar_aviso' pk=aviso.id %}">
+            <i class="fa fa-remove" aria-hidden></i>
+        </a>
       </td>
     </tr>
 {% empty %}

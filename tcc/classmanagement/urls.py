@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.views.generic import TemplateView
 from . import views
 from django.conf.urls import include
 
@@ -45,6 +46,14 @@ urlpatterns = [
     path('atualizar/atendimento/<pk>', views.AtendimentoUpdateView.as_view(), name='atualizar_atendimento'),
     path('atualizar/aviso/<pk>', views.AvisoUpdateView.as_view(), name='atualizar_aviso'),
 
+#-------Deletar Cadastros----------#
+    path('deletar/professor/<pk>', views.ProfessorDeleteView.as_view(), name='deletar_professor'),
+    path('deletar/turma/<pk>', views.TurmaDeleteView.as_view(), name='deletar_turma'),
+    path('deletar/colegio/<pk>', views.ColegioDeleteView.as_view(), name='deletar_colegio'),
+    path('deletar/materia/<pk>', views.MateriaDeleteView.as_view(), name='deletar_materia'),
+    path('deletar/atendimento/<pk>', views.AtendimentoDeleteView.as_view(), name='deletar_atendimento'),
+    path('deletar/aviso/<pk>', views.AvisoDeleteView.as_view(), name='deletar_aviso'),
+
 #--------Listas--------#
     path('visualizar/alunos', views.UserListView.as_view(), name='visualizar_usuarios'),
     path('visualizar/professor', views.ProfessorListView.as_view(), name='visualizar_professor'),
@@ -65,4 +74,6 @@ urlpatterns = [
 
 #------Autenticação-----#
 
+#----- Proteção exclusão ---#
+    #path('erro/exclusao/', TemplateView.as_view(template_name="protectDelete.html"), name='protectDelete'),
 ]

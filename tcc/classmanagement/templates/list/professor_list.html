@@ -22,6 +22,9 @@
         <a href="{% url 'atualizar_professor' pk=professor.id %}" class="">
           <i class="fa fa-edit" aria-hidden></i>
         </a>
+        <a href="{% url 'deletar_professor' pk=professor.id %}">
+            <i class="fa fa-remove" aria-hidden></i>
+        </a>
       </td>
     </tr>
 {% empty %}

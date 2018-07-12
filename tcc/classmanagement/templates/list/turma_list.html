@@ -26,12 +26,16 @@
     <td>{{ turma.colegio }}</td>
     <td>{{ turma.data_cadastro }}</td>
     <td class="center">
+
+        {% if turma.representante == request.user %}
         <a href="{% url 'atualizar_turma' pk=turma.id %}" class="">
-          <i class="fa fa-edit" aria-hidden></i>
+          <i class="fa fa-cog" aria-hidden></i>
         </a>
-        <a href="">
-            <i class="fa fa-remove" aria-hidden></i>
+        {% else %}
+            <a href="" class="">
+          <i class="fa fa-search" aria-hidden></i>
         </a>
+        {% endif %}
       </td>
     </tr>
 {% empty %}

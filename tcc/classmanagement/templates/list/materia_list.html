@@ -29,6 +29,9 @@
         <a href="{% url 'atualizar_materia' pk=materia.id %}" class="">
           <i class="fa fa-edit" aria-hidden></i>
         </a>
+        <a href="{% url 'deletar_materia' pk=materia.id %}">
+            <i class="fa fa-remove" aria-hidden></i>
+        </a>
       </td>
     </tr>
 {% empty %}
