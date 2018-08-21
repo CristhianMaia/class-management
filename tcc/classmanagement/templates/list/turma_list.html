@@ -5,39 +5,27 @@
 {% endblock %}
 
 {% block lista %}
+<br>
 <table class="table table-striped">
-    <thead>
-    <tr>
-        <th>Nome</th>
-        <th>Representante</th>
-        <th>Colegio</th>
-        <th>Data de Cadastro</th>
-        <th class="center">Opções</th>
-    </tr>
-    </thead>
     <tbody>
-
     <!-- laço para as turmas em que o usuario É representante -->
     {% for turma in object_list %}
-
+    <a href="{% url 'detail_turma' pk=turma.id %}" class="">
     <tr class="{% if turma.representante == request.user %}table-primary{% endif %}">
-        <td>{{ turma.nome }}</td>
-        <td>{{ turma.representante }}</td>
-        <td>{{ turma.colegio }}</td>
-        <td>{{ turma.data_cadastro }}</td>
-        <td class="center">
-
-
-            <a href="{% url 'detail_turma' pk=turma.id %}" class="">
+        <td><h2>{{ turma.nome }}</h2><br>
+        {{ turma.colegio }}
+        {{ turma.representante }}
+        {{ turma.data_cadastro }}</td>
+    </tr>
+    </a>
+<!--<a href="{% url 'detail_turma' pk=turma.id %}" class="">
                 <i class="fa fa-search" aria-hidden></i>
             </a>
+            {% if turma.representante == request.user %}
             <a href="{% url 'atualizar_turma' pk=turma.id %}" class="">
                 <i class="fa fa-cog" aria-hidden></i>
-                </a>
-        </td>
-    </tr>
-
-
+            </a>
+            {% endif %}-->
     {% empty %}
     <tr>
         <td colspan="4">Nenhum registro encontrado!</td>
