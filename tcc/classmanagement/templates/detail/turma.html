@@ -1,0 +1,287 @@
+{% extends "base.html" %}
+
+<!-- Carrega os arquivos necessários -->
+{% load static %}
+{% load bootstrap4 %}
+
+{% block menu %}
+{{ block.super }}
+{% block menu_index %}
+{% endblock %}
+{% endblock %}
+<!-- Faz o menu exatamente como o que está no arquivo base, por isso o .super -->
+{% block title %}
+{{turma.nome}}
+{% endblock %}
+
+<!-- Substitui o topo do base por este.
+Um monte de <br> serve para o texto do conteúdo não ficar embaixo do menu -->
+{% block topo %}
+<br>
+<br>
+{% endblock %}
+
+<!-- Faz assim pra ficar sem nada, por isso não tem br nem .super -->
+{% block topo2 %} {% endblock %}
+
+<!-- Aqui vai todo o conteúdo que vc quer colocar na página -->
+{% block conteudo %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <br>
+
+            <div class="d-inline-flex p-2"><h2>{{turma.nome}}</h2></div>
+            <small class="text-muted"><i class="fa fa-fort-awesome" aria-hidden="true"></i> {{ turma.colegio }}</small>
+            <h6 class="float-right">Representante: <i class="fa fa-user" aria-hidden="true"></i> {{ turma.representante }}</h6><br>
+            <br>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="avisos-tab" data-toggle="tab" href="#avisos" role="tab"
+                       aria-controls="avisos" aria-selected="true">Avisos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="alunos-tab" data-toggle="tab" href="#alunos" role="tab"
+                       aria-controls="alunos" aria-selected="false">Alunos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="atendimentos-tab" data-toggle="tab" href="#atendimentos" role="tab"
+                       aria-controls="atendimento" aria-selected="false">Atendimentos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="horario-tab" data-toggle="tab" href="#horario" role="tab"
+                       aria-controls="horario" aria-selected="false">Horario Aula</a>
+                </li>
+                {% if turma.representante == request.user %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                       aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-user" aria-hidden="true"></i> Representante
+                    </a>
+
+                    <div class="dropdown-menu" aria-labelledby="navDropdown">
+                        <h6 class="dropdown-header">Cadastrar</h6>
+                        <a class="dropdown-item" href="{% url 'cadastrar_aviso' %}">Aviso</a>
+                        <a class="dropdown-item" href="{% url 'cadastrar_professor' %}">Professor</a>
+                        <a class="dropdown-item" href="{% url 'cadastrar_materia' %}">Matéria</a>
+                        <a class="dropdown-item" href="{% url 'cadastrar_atendimento' %}">Atendimento</a>
+                        <div class="dropdown-divider"></div>
+                        <h6 class="dropdown-header">Turma</h6>
+                        <a class="dropdown-item" href="{% url 'atualizar_turma' pk=turma.id %}">Editar Turma</a>
+
+                    </div>
+                </li>
+                {% endif %}
+            </ul>
+
+            <!---- CONTEUDO da pagina -->
+
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="avisos" role="tabpanel" aria-labelledby="avisos-tab">
+                    {% if turma.representante == request.user %}
+                    <div class="float-right"><a class="text-info" href="{% url 'cadastrar_aviso' %}"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Adicionar um aviso</a></div>
+                    {% endif %}
+                    <h3>Avisos</h3>
+                    {% for aviso in avisos %}
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="card text-center">
+                                <div class="card-header">
+                                    {{ aviso.get_tipo_aviso_display }}
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ aviso.materia }}</h5>
+                                    <p class="card-text">{{ aviso.comentarios }}</p>
+                                    <p class="card-text">
+                                        <small class="text-muted">Data de Entrega: {{ aviso.data_final }}</small>
+                                    </p>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    {% if turma.representante == request.user %}
+                                    <a class="float-left" href="{% url 'atualizar_aviso' pk=aviso.id %}">
+                                        <text class="text-primary"><i class="fa fa-edit" aria-hidden></i></text>
+                                    </a>
+                                    <small class="text-muted">{{ aviso.data_post }}</small>
+                                    <a class="float-right" href="{% url 'deletar_aviso' pk=aviso.id %}">
+                                        <text class="text-danger"><i class="fa fa-remove" aria-hidden></i></text>
+                                    </a>
+                                    {% else %}
+                                    <small class="text-muted">{{ aviso.data_post }}</small>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <h5 class="text-danger">Nenhum cadastro de Aviso encontrado na turma {{turma.nome}}!</h5>
+                    {% endfor %}
+                </div>
+                <div class="tab-pane fade" id="alunos" role="tabpanel" aria-labelledby="alunos-tab">
+                    {% if turma.representante == request.user %}
+                    <div class="float-right"><a class="text-info" href="{% url 'atualizar_turma' pk=turma.id %}"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Adicionar/remover alunos</a></div>
+                    {% endif %}
+                    <h3>Alunos matriculados na turma</h3>
+                    {% for aluno in turma.alunos.all %}
+                    {{ aluno.username }} \ {{ aluno.first_name }} {{ aluno.last_name }} \ {{ aluno.email }}
+                    <br>
+                    {% empty %}
+                    Nada
+                    {% endfor %}
+                </div>
+                <div class="tab-pane fade" id="atendimentos" role="tabpanel" aria-labelledby="atendimentos-tab">
+                    {% if turma.representante == request.user %}
+                    <div class="float-right"><a class="text-info" href="{% url 'cadastrar_atendimento' %}"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Adicionar um Atendimento</a></div>
+                    {% endif %}
+                    <h3>Atendimentos</h3>
+                    <link rel="stylesheet" type="text/css"
+                          href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/css/jquery.dataTables.css">
+                    <link rel="stylesheet" type="text/css"
+                          href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/css/jquery.dataTables_themeroller.css">
+                    <script type="text/javascript" charset="utf8"
+                            src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.1.min.js"></script>
+                    <script type="text/javascript" charset="utf8"
+                            src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/jquery.dataTables.min.js"></script>
+                    <script type="text/javascript">
+                $(document).ready( function () {
+                $('#table_id').DataTable();
+                } );
+
+
+
+
+
+
+                    </script>
+                    <table id="table_id" class="display">
+                        <thead>
+                        <tr>
+                            <th>Professor</th>
+                            <th>Dia da semana</th>
+                            <th>Horario</th>
+                            <th class="center">Opcões</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for atendimento in atendimentos %}
+                        <tr>
+                            <td>{{ atendimento.professor }}</td>
+                            <td>{{ atendimento.get_dia_display }}</td>
+                            <td>{{ atendimento.horario_inicio }} ~ {{ atendimento.horario_fim }}</td>
+                            <td class="center"><a href="{% url 'atualizar_atendimento' pk=atendimento.id %}"
+                                                  class="text-blue">
+                                <i class="fa fa-edit" aria-hidden></i>
+                            </a>
+                                <a href="{% url 'deletar_atendimento' pk=atendimento.id %}" class="text-danger">
+                                    <i class="fa fa-remove" aria-hidden></i>
+                                </a></td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td>Nenhum</td>
+                            <td>registro</td>
+                            <td>encontrado!</td>
+                        </tr>
+                        <tr>
+                            <td>ANenhum</td>
+                            <td>Aregistro</td>
+                            <td>Aencontrado!</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="horario" role="tabpanel" aria-labelledby="horario-tab">
+                    {% if turma.representante == request.user %}
+                    <div class="float-right"><a class="text-info" href="{% url 'cadastrar_professor' %}"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Adicionar um Professor</a>
+                    <a class="text-info" href="{% url 'cadastrar_materia' %}"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Adicionar uma Materia</a></div>
+                    {% endif %}
+                    <h3>Materias/Horarios Aula</h3>
+                    <br>
+                    <h5>Segunda</h5>
+                    {% for materia in materias_seg %}
+                    {{ materia.nome }}<br>
+                    {{ materia.professor }}<br>
+                    {{ materia.local }}<br>
+                    {{ materia.get_dia_display }}<br>
+                    {{ materia.horario_inicio }} ~ {{ materia.horario_fim }}<br>
+                    <br>
+                    {% empty %}
+                    Nenhum registro encontrado!
+                    {% endfor %}
+
+                    <h5>Terça</h5>
+                    {% for materia in materias_ter %}
+                    {{ materia.nome }}<br>
+                    {{ materia.professor }}<br>
+                    {{ materia.local }}<br>
+                    {{ materia.get_dia_display }}<br>
+                    {{ materia.horario_inicio }} ~ {{ materia.horario_fim }}<br>
+                    <br>
+                    {% empty %}
+                    Nenhum registro encontrado!
+                    {% endfor %}
+
+                    <h5>Quarta</h5>
+                    {% for materia in materias_qua %}
+                    {{ materia.nome }}<br>
+                    {{ materia.professor }}<br>
+                    {{ materia.local }}<br>
+                    {{ materia.get_dia_display }}<br>
+                    {{ materia.horario_inicio }} ~ {{ materia.horario_fim }}<br>
+                    <br>
+                    {% empty %}
+                    Nenhum registro encontrado!
+                    {% endfor %}
+
+                    <h5>Quinta</h5>
+                    {% for materia in materias_qui %}
+                    {{ materia.nome }}<br>
+                    {{ materia.professor }}<br>
+                    {{ materia.local }}<br>
+                    {{ materia.get_dia_display }}<br>
+                    {{ materia.horario_inicio }} ~ {{ materia.horario_fim }}<br>
+                    <br>
+                    {% empty %}
+                    Nenhum registro encontrado!
+                    {% endfor %}
+
+                    <h5>Sexta</h5>
+                    {% for materia in materias_sex %}
+                    {{ materia.nome }}<br>
+                    {{ materia.professor }}<br>
+                    {{ materia.local }}<br>
+                    {{ materia.get_dia_display }}<br>
+                    {{ materia.horario_inicio }} ~ {{ materia.horario_fim }}<br>
+                    <br>
+                    {% empty %}
+                    Nenhum registro encontrado!
+                    {% endfor %}
+                </div>
+            </div>
+
+
+            <hr>
+
+
+
+            <br>
+            <!--<form method="post" action="">
+              {% csrf_token %}
+              <br>
+              <input type="submit" value="{{input}}" class="btn btn-primary btn-sm" />
+            </form>
+            -->
+
+        </div>
+    </div>
+</div>
+<br>
+{% endblock %}
+
+{% block footer %}
+{{ block.super }}
+{% endblock %}
+
+{% block scripts_js %}
+{{ block.super }}
+{% endblock %}
