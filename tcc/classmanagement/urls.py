@@ -65,15 +65,6 @@ urlpatterns = [
     path('turma/<pk>', views.TurmaDetailView.as_view(), name='detail_turma'),
 
 
-#------Telas--------#
-    path('turma/1/', views.TurmaTemplateView.as_view(), name='turmaID'),   # Turma selecionada pelo usuario por meio da tela Turmas
-    path('turma/1/info/', views.InfoTurma.as_view(), name='info_turma'),     # info da turma em que estava selecionada por meio de botao na tela Turma
-    path('turma/1/horarios/', views.HorariosTemplateView.as_view(), name='horarios aula'),
-    path('turma/1/atendimentos/', views.AtendimentosTemplateView.as_view(), name='atendimentos'),
-
-    path('turma/1/adicionar_aviso/', views.AvisoCreateView.as_view(), name='cadastrar aviso'),
-    path('turma/1/adicionar_aluno/', views.AlunosCreateView.as_view(), name='cadastrar aluno'),
-
 #------Autenticação-----#
 
 #----- Proteção exclusão ---#
