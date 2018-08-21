@@ -4,7 +4,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from .models import Aviso
+from .models import Aviso, Atendimento, Materia
 
 class RegistrarUserForm(UserCreationForm):
     first_name = forms.CharField(max_length=30, label='Nome')
@@ -44,9 +44,50 @@ class AvisoForm(forms.ModelForm):
          ]
 
     def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
 
         # Busca as turmas que tem como representante o usuário logado
-        self.fields['turma'].queryset = self.fields['turma'].queryset.filter(representante=kwargs['instance'])
+        self.fields['turma'].queryset = self.fields['turma'].queryset.filter(representante=user)
         # Traz as matérias em que a turma tem como representante o usuário logado
-        self.fields['materia'].queryset = self.fields['materia'].queryset.filter(turma__representante=kwargs['instance'])
+        self.fields['materia'].queryset = self.fields['materia'].queryset.filter(turma__representante=user)
+
+class AtendimentoForm(forms.ModelForm):
+
+    class Meta:
+         model = Atendimento
+         fields = [
+             'turma',
+             'professor',
+             'dia',
+             'horario_inicio',
+             'horario_fim'
+         ]
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+
+        # Busca as turmas que tem como representante o usuário logado
+        self.fields['turma'].queryset = self.fields['turma'].queryset.filter(representante=user)
+
+class MateriaForm(forms.ModelForm):
+
+    class Meta:
+         model = Materia
+         fields = [
+             'nome',
+             'local',
+             'dia',
+             'horario_inicio',
+             'horario_fim',
+             'turma',
+             'professor'
+         ]
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+
+        # Busca as turmas que tem como representante o usuário logado
+        self.fields['turma'].queryset = self.fields['turma'].queryset.filter(representante=user)

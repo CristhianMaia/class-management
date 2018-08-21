@@ -1,20 +1,21 @@
+from braces.views import GroupRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
+from django.urls import reverse_lazy
+# from django.urlresolvers import reverse_lazy
+from django.views import generic
+from django.views.generic import DetailView
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.contrib.auth.models import User
+
 from . import models
-from django.contrib.auth.mixins import LoginRequiredMixin
-from braces.views import GroupRequiredMixin
-from django.urls import reverse_lazy
-#from django.urlresolvers import reverse_lazy
-from django.views import generic
-from .forms import RegistrarUserForm, AvisoForm
+from .forms import RegistrarUserForm, AvisoForm, AtendimentoForm, MateriaForm
+
 
 #Telas iniciais
 
-class Index(TemplateView,#AnonymousRequiredMixin
-            ):
+class Index(TemplateView):
     template_name = 'base.html'
-    authenticated_redirect_url = '/turmas'
 
 #------------CreateView--------------#
 class UserCreateView(CreateView, #AnonymousRequiredMixin
@@ -99,23 +100,28 @@ class MateriaCreateView(GroupRequiredMixin, LoginRequiredMixin, CreateView): #Ca
     model = models.Materia
     login_url = '/login/'
     success_url = reverse_lazy('visualizar_materia')
-    fields = [
-        'nome',
-        'local',
-        'dia',
-        'horario_inicio',
-        'horario_fim',
-        'turma',
-        'professor'
-    ]
+    # fields = [
+    #     'nome',
+    #     'local',
+    #     'dia',
+    #     'horario_inicio',
+    #     'horario_fim',
+    #     'turma',
+    #     'professor'
+    # ]
+    form_class = MateriaForm
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        context['turmas'] = models.Turma.objects.filter(representante=self.request.user)
 
         context['titulo'] = 'Cadastro de Materias'
         context['input'] = 'Adicionar Matéria'
         return context
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
 
 
 class AtendimentoCreateView(GroupRequiredMixin, LoginRequiredMixin, CreateView): #Cadastro de atendimentos
@@ -124,19 +130,21 @@ class AtendimentoCreateView(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     model = models.Atendimento
     login_url = '/login/'
     success_url = reverse_lazy('visualizar_atendimento')
-    fields = [
-        'turma',
-        'professor',
-        'dia',
-        'horario_inicio',
-        'horario_fim'
-    ]
+
+    form_class = AtendimentoForm
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         context['titulo'] = 'Cadastro de Atendimento'
         context['input'] = 'Adicionar Atendimento'
         return context
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
 
 class AvisoCreateView(GroupRequiredMixin, LoginRequiredMixin, CreateView):  #Cadastro de Aviso
     group_required = u"representante"
@@ -167,7 +175,7 @@ class AvisoCreateView(GroupRequiredMixin, LoginRequiredMixin, CreateView):  #Cad
     # neste caso, guardamos o usuário que está acessando o site na posição 'instance'
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        kwargs['instance'] = self.request.user
+        kwargs['user'] = self.request.user
         return kwargs
 
 
@@ -270,21 +278,20 @@ class MateriaUpdateView(GroupRequiredMixin, LoginRequiredMixin, UpdateView): #Ca
     model = models.Materia
     login_url = '/login/'
     success_url = reverse_lazy('visualizar_materia')
-    fields = [
-        'nome',
-        'local',
-        'dia',
-        'horario_inicio',
-        'horario_fim',
-        'turma',
-        'professor'
-    ]
+
+    form_class = MateriaForm
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         context['titulo'] = 'Editar Materia'
         context['input'] = 'Salvar'
         return context
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
 
 
 class AtendimentoUpdateView(GroupRequiredMixin, LoginRequiredMixin, UpdateView): #Cadastro de atendimentos
@@ -293,19 +300,20 @@ class AtendimentoUpdateView(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     model = models.Atendimento
     login_url = '/login/'
     success_url = reverse_lazy('visualizar_atendimento')
-    fields = [
-        'turma',
-        'professor',
-        'dia',
-        'horario_inicio',
-        'horario_fim'
-    ]
+
+    form_class = AtendimentoForm
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         context['titulo'] = 'Editar Atendimento'
         context['input'] = 'Salvar'
         return context
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
 
 
 class AvisoUpdateView(GroupRequiredMixin, LoginRequiredMixin, UpdateView):  #Cadastro de Aviso
@@ -314,13 +322,9 @@ class AvisoUpdateView(GroupRequiredMixin, LoginRequiredMixin, UpdateView):  #Cad
     model = models.Aviso
     login_url = '/login/'
     success_url = reverse_lazy('visualizar_aviso')
-    fields = [
-        'turma',
-        'materia',
-        'tipo_aviso',
-        'comentarios',
-        'data_final'
-    ]
+
+    form_class = AvisoForm
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -328,24 +332,13 @@ class AvisoUpdateView(GroupRequiredMixin, LoginRequiredMixin, UpdateView):  #Cad
         context['input'] = 'Salvar'
         return context
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
 
 #---------------Delete View--------------#
-class TurmaDeleteView(GroupRequiredMixin, LoginRequiredMixin, DeleteView): #Tela de crianção de turmas
-    group_required = u"representante"
-    model = models.Turma
-    template_name = 'formdelete.html'
-    login_url = '/login/'
-    success_url = reverse_lazy('visualizar_turma')
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        context['titulo'] = 'Editar Turma'
-        context['cadastro'] = 'uma Turma'
-        context['input'] = 'Salvar'
-        return context
-
-
 class ProfessorDeleteView(GroupRequiredMixin, LoginRequiredMixin, DeleteView):  #Cadastro de Aviso
     group_required = u"representante"
     template_name = 'formdelete.html'
@@ -357,7 +350,8 @@ class ProfessorDeleteView(GroupRequiredMixin, LoginRequiredMixin, DeleteView):  
         context = super().get_context_data(**kwargs)
 
         context['titulo'] = 'Editar Professor'
-        context['cadastro'] = 'um Professor'
+        context['cadastro'] = 'o Professor'
+        context['item'] = models.Professor.objects.get(pk=self.kwargs['pk']).nome
         context['input'] = 'Salvar'
         return context
 
@@ -380,7 +374,8 @@ class ColegioDeleteView(LoginRequiredMixin, DeleteView):  # Cadastro de Professo
         context = super().get_context_data(**kwargs)
 
         context['titulo'] = 'Editar Colegio'
-        context['cadastro'] = 'um Colegio'
+        context['cadastro'] = 'o Colegio'
+        context['item'] = models.Colegio.objects.get(pk=self.kwargs['pk']).nome
         context['input'] = 'Salvar'
         return context
 
@@ -396,7 +391,8 @@ class MateriaDeleteView(GroupRequiredMixin, LoginRequiredMixin, DeleteView): #Ca
         context = super().get_context_data(**kwargs)
 
         context['titulo'] = 'Editar Materia'
-        context['cadastro'] = 'uma Materia'
+        context['cadastro'] = 'a Materia'
+        context['item'] = models.Materia.objects.get(pk=self.kwargs['pk']).nome
         context['input'] = 'Salvar'
         return context
 
@@ -412,7 +408,8 @@ class AtendimentoDeleteView(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
         context = super().get_context_data(**kwargs)
 
         context['titulo'] = 'Editar Atendimento'
-        context['cadastro'] = 'um Atendimento'
+        context['cadastro'] = 'o Atendimento do Professor'
+        context['item'] = models.Atendimento.objects.get(pk=self.kwargs['pk']).professor
         context['input'] = 'Salvar'
         return context
 
@@ -428,7 +425,8 @@ class AvisoDeleteView(GroupRequiredMixin, LoginRequiredMixin, DeleteView):  #Cad
         context = super().get_context_data(**kwargs)
 
         context['titulo'] = 'Editar Aviso'
-        context['cadastro'] = 'um Aviso'
+        context['cadastro'] = 'o Aviso da Turma'
+        context['item'] = models.Aviso.objects.get(pk=self.kwargs['pk']).turma
         context['input'] = 'Salvar'
         return context
 #----------------List View---------------#
@@ -543,6 +541,26 @@ class AvisoListView(generic.ListView):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Lista de Avisos'
         return context
+
+
+#---------------- DetailView ---------------------#
+class TurmaDetailView(LoginRequiredMixin, DetailView): #Tela de crianção de turmas
+    model = models.Turma
+    template_name = 'detail/turma.html'
+    login_url = '/login/'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # context['titulo'] = self[0].nome
+        context['avisos'] = models.Aviso.objects.filter(turma=self.kwargs['pk'])
+        context['materias_seg'] = models.Materia.objects.filter(turma=self.kwargs['pk'],dia='Seg').order_by('horario_inicio')
+        context['materias_ter'] = models.Materia.objects.filter(turma=self.kwargs['pk'],dia='Ter').order_by('horario_inicio')
+        context['materias_qua'] = models.Materia.objects.filter(turma=self.kwargs['pk'],dia='Qua').order_by('horario_inicio')
+        context['materias_qui'] = models.Materia.objects.filter(turma=self.kwargs['pk'],dia='Qui').order_by('horario_inicio')
+        context['materias_sex'] = models.Materia.objects.filter(turma=self.kwargs['pk'],dia='Sex').order_by('horario_inicio')
+        context['atendimentos'] = models.Atendimento.objects.filter(turma=self.kwargs['pk'])
+        return context
+
 
 #---------------- TemplateView -------------------#
 class Login(TemplateView):

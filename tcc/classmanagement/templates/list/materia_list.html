@@ -26,10 +26,10 @@
     <td>{{ materia.local }}</td>
     <td>{{ materia.horario_inicio }} ~ {{ materia.horario_fim }}</td>
     <td class="center">
-        <a href="{% url 'atualizar_materia' pk=materia.id %}" class="">
+        <a href="{% url 'atualizar_materia' pk=materia.id %}" class="text-dark">
           <i class="fa fa-edit" aria-hidden></i>
         </a>
-        <a href="{% url 'deletar_materia' pk=materia.id %}">
+        <a href="{% url 'deletar_materia' pk=materia.id %}" class="text-dark">
             <i class="fa fa-remove" aria-hidden></i>
         </a>
       </td>

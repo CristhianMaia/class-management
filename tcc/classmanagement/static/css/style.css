@@ -3,13 +3,9 @@
 }
 
 table a, table a:hover{
-  color: #000;
-}
+  text-decoration: none !important;
+  }
 
-a, a:hover{
-  text-decoration: none;
-  color: #FFFFFF;
-}
 
 .btn-primary {
   background: #3498db;

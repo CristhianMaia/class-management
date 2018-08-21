@@ -19,7 +19,7 @@
 {% for atendimento in object_list %}
     <td>{{ atendimento.turma }}</td>
     <td>{{ atendimento.professor }}</td>
-    <td>{{ atendimento.dia }}</td>
+    <td>{{ atendimento.get_dia_display }}</td>
     <td>{{ atendimento.horario_inicio }} ~ {{ atendimento.horario_fim }}</td>
     <td class="center">
         <a href="{% url 'atualizar_atendimento' pk=atendimento.id %}" class="">

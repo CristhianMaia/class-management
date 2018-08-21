@@ -15,7 +15,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.views.generic import TemplateView
 from . import views
 from django.conf.urls import include
 
@@ -48,7 +47,6 @@ urlpatterns = [
 
 #-------Deletar Cadastros----------#
     path('deletar/professor/<pk>', views.ProfessorDeleteView.as_view(), name='deletar_professor'),
-    path('deletar/turma/<pk>', views.TurmaDeleteView.as_view(), name='deletar_turma'),
     path('deletar/colegio/<pk>', views.ColegioDeleteView.as_view(), name='deletar_colegio'),
     path('deletar/materia/<pk>', views.MateriaDeleteView.as_view(), name='deletar_materia'),
     path('deletar/atendimento/<pk>', views.AtendimentoDeleteView.as_view(), name='deletar_atendimento'),
@@ -62,6 +60,10 @@ urlpatterns = [
     path('visualizar/materia/', views.MateriaListView.as_view(), name='visualizar_materia'),
     path('visualizar/atendimento/', views.AtendimentoListView.as_view(), name='visualizar_atendimento'),
     path('visualizar/aviso/', views.AvisoListView.as_view(), name='visualizar_aviso'),
+
+#-------DetailView-----#
+    path('turma/<pk>', views.TurmaDetailView.as_view(), name='detail_turma'),
+
 
 #------Telas--------#
     path('turma/1/', views.TurmaTemplateView.as_view(), name='turmaID'),   # Turma selecionada pelo usuario por meio da tela Turmas

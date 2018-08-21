@@ -65,14 +65,15 @@ class Materia(models.Model):
 
     # Método que vai retornar o nome do objeto quando for imprimir um objeto, como se fosse um toString
     def __str__(self):
-        return self.nome + " (" + self.turma.nome + ")"
+        return self.nome
+               # + " (" + self.turma.nome + ")"
 
     # Define como será chamada essa classe nas telas porque o nome tema acento
     # Só é necessário se a palavra tem acentos
     class Meta:
         verbose_name = 'Matéria'
         verbose_name_plural = 'Matérias'
-        ordering = ['nome', 'turma']
+        ordering = ['turma','nome']
 
 class Aviso(models.Model):
     AVISO_CHOICES   = (

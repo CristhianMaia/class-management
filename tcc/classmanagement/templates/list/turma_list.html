@@ -6,43 +6,43 @@
 
 {% block lista %}
 <table class="table table-striped">
-  <thead>
+    <thead>
     <tr>
-      <th>Nome</th>
-      <th>Alunos</th>
-      <th>Representante</th>
-      <th>Colegio</th>
-      <th>Data de Cadastro</th>
-      <th class="center">Opções</th>
+        <th>Nome</th>
+        <th>Representante</th>
+        <th>Colegio</th>
+        <th>Data de Cadastro</th>
+        <th class="center">Opções</th>
     </tr>
-  </thead>
-  <tbody>
-{% for turma in object_list %}
-    <td>{{ turma.nome }}</td>
-    <td>
-        {{ turma.alunos }}
-    </td>
-    <td>{{ turma.representante }}</td>
-    <td>{{ turma.colegio }}</td>
-    <td>{{ turma.data_cadastro }}</td>
-    <td class="center">
+    </thead>
+    <tbody>
 
-        {% if turma.representante == request.user %}
-        <a href="{% url 'atualizar_turma' pk=turma.id %}" class="">
-          <i class="fa fa-cog" aria-hidden></i>
-        </a>
-        {% else %}
-            <a href="" class="">
-          <i class="fa fa-search" aria-hidden></i>
-        </a>
-        {% endif %}
-      </td>
+    <!-- laço para as turmas em que o usuario É representante -->
+    {% for turma in object_list %}
+
+    <tr class="{% if turma.representante == request.user %}table-primary{% endif %}">
+        <td>{{ turma.nome }}</td>
+        <td>{{ turma.representante }}</td>
+        <td>{{ turma.colegio }}</td>
+        <td>{{ turma.data_cadastro }}</td>
+        <td class="center">
+
+
+            <a href="{% url 'detail_turma' pk=turma.id %}" class="">
+                <i class="fa fa-search" aria-hidden></i>
+            </a>
+            <a href="{% url 'atualizar_turma' pk=turma.id %}" class="">
+                <i class="fa fa-cog" aria-hidden></i>
+                </a>
+        </td>
     </tr>
-{% empty %}
+
+
+    {% empty %}
     <tr>
-      <td colspan="4">Nenhum registro encontrado!</td>
+        <td colspan="4">Nenhum registro encontrado!</td>
     </tr>
-{% endfor %}
-</tbody>
+    {% endfor %}
+    </tbody>
 </table>
 {% endblock %}

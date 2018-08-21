@@ -38,7 +38,7 @@ Um monte de <br> serve para o texto do conteúdo não ficar embaixo do menu -->
 <form method="post">
   {% csrf_token %}
   <br>
-    <p>Tem certeza que deseja deletar {{cadastro}}? </p>
+    <p>Tem certeza que deseja deletar {{cadastro}} "{{item}}"? </p>
     <input type="submit" value="{{input}}" class="btn btn-primary btn-sm" />
 </form>
 

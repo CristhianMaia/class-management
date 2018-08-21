@@ -28,10 +28,10 @@
     <td>{{ aviso.ultima_modificacao }}</td>
     <td>{{ aviso.data_final }}</td>
     <td class="center">
-        <a href="{% url 'atualizar_aviso' pk=aviso.id %}" class="">
+        <a href="{% url 'atualizar_aviso' pk=aviso.id %}" class="text-dark">
           <i class="fa fa-edit" aria-hidden></i>
         </a>
-        <a href="{% url 'deletar_aviso' pk=aviso.id %}">
+        <a href="{% url 'deletar_aviso' pk=aviso.id %}" class="text-dark">
             <i class="fa fa-remove" aria-hidden></i>
         </a>
       </td>
