@@ -5,32 +5,29 @@
 {% endblock %}
 
 {% block lista %}
-<br>
-<table class="table table-striped">
-    <tbody>
-    <!-- laço para as turmas em que o usuario É representante -->
+<!-- laço para as turmas em que o usuario É representante -->
+<div class="list-group">
     {% for turma in object_list %}
-    <a href="{% url 'detail_turma' pk=turma.id %}" class="">
-    <tr class="{% if turma.representante == request.user %}table-primary{% endif %}">
-        <td><h2>{{ turma.nome }}</h2><br>
-        {{ turma.colegio }}
-        {{ turma.representante }}
-        {{ turma.data_cadastro }}</td>
-    </tr>
+
+
+
+    <a href="{% url 'detail_turma' pk=turma.id %}" class="list-group-item list-group-item-action flex-column align-items-start{% if turma.representante == request.user %} list-group-item-dark{% endif %}">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{turma.nome}}</h5>
+        </div>
+        <div class="d-flex w-100 justify-content-between">
+            <h7 class="mb-1">{{ turma.colegio }}</h7>
+            <small class="mb-1"><i class="fa fa-user" aria-hidden="true"></i> {{turma.representante.first_name}} {{turma.representante.last_name}} ({{turma.representante.username}}) </small>
+
+        </div>
+        {% if turma.representante == request.user %}
+        <a href="{% url 'atualizar_turma' pk=turma.id %}" class="badge badge-dark badgel-pill"> <i class="fa fa-edit" aria-hidden></i></a>
+        {% endif %}
     </a>
-<!--<a href="{% url 'detail_turma' pk=turma.id %}" class="">
-                <i class="fa fa-search" aria-hidden></i>
-            </a>
-            {% if turma.representante == request.user %}
-            <a href="{% url 'atualizar_turma' pk=turma.id %}" class="">
-                <i class="fa fa-cog" aria-hidden></i>
-            </a>
-            {% endif %}-->
     {% empty %}
     <tr>
         <td colspan="4">Nenhum registro encontrado!</td>
     </tr>
     {% endfor %}
-    </tbody>
-</table>
+</div>
 {% endblock %}
