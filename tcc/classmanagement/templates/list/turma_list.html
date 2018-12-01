@@ -6,6 +6,9 @@
 
 {% block lista %}
 <!-- laço para as turmas em que o usuario É representante -->
+<a class="nav-link" href="{% url 'cadastrar_turma' %}">
+              Cadastrar uma Turma
+            </a>
 <div class="list-group">
     {% for turma in object_list %}
 

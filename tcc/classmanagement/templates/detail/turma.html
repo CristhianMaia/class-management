@@ -82,8 +82,9 @@ Um monte de <br> serve para o texto do conteúdo não ficar embaixo do menu -->
                     <div class="float-right"><a class="text-info" href="{% url 'cadastrar_aviso' %}"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Adicionar um aviso</a></div>
                     {% endif %}
                     <h3>Avisos</h3>
-                    {% for aviso in avisos %}
+
                     <div class="row">
+                        {% for aviso in avisos %}
                         <div class="col-sm-4">
                             <div class="card text-center">
                                 <div class="card-header">
@@ -110,11 +111,13 @@ Um monte de <br> serve para o texto do conteúdo não ficar embaixo do menu -->
                                     {% endif %}
                                 </div>
                             </div>
+                            <br>
                         </div>
+
+                        {% empty %}
+                        <h5 class="text-danger">Nenhum cadastro de Aviso encontrado na turma {{turma.nome}}!</h5>
+                        {% endfor %}
                     </div>
-                    {% empty %}
-                    <h5 class="text-danger">Nenhum cadastro de Aviso encontrado na turma {{turma.nome}}!</h5>
-                    {% endfor %}
                 </div>
                 <div class="tab-pane fade" id="alunos" role="tabpanel" aria-labelledby="alunos-tab">
                     {% if turma.representante == request.user %}
@@ -193,7 +196,7 @@ Um monte de <br> serve para o texto do conteúdo não ficar embaixo do menu -->
                 <div class="tab-pane fade" id="horario" role="tabpanel" aria-labelledby="horario-tab">
                     {% if turma.representante == request.user %}
                     <div class="float-right"><a class="text-info" href="{% url 'cadastrar_professor' %}"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Adicionar um Professor</a>
-                    <a class="text-info" href="{% url 'cadastrar_materia' %}"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Adicionar uma Materia</a></div>
+                        <a class="text-info" href="{% url 'cadastrar_materia' %}"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Adicionar uma Materia</a></div>
                     {% endif %}
                     <h3>Materias/Horarios Aula</h3>
                     <br>

@@ -57,8 +57,8 @@
 
         <ul class="navbar-nav ml-auto">
 
-        {% if request.user|has_group:"representante" or request.user.is_superuser %}
-
+        {% if request.user.is_superuser %}
+          <!--request.user|has_group:"representante" or -->
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Cadastros
@@ -96,6 +96,7 @@
             </div>
           </li>
             {% endif %}
+
           <li class="nav-item">
             <a class="nav-link" href="{% url 'visualizar_turma' %}">
               <i class="fa fa-book" aria-hidden="true"></i>
